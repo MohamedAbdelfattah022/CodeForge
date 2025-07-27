@@ -9,9 +9,5 @@ public class SubmissionConfiguration : IEntityTypeConfiguration<Submission> {
 		builder.Property(s => s.Verdict)
 			.HasConversion<string>()
 			.HasMaxLength(10);
-
-		builder.HasMany(s => s.SubmissionTestCaseResults)
-			.WithOne(sr => sr.Submission)
-			.HasForeignKey(sr => sr.SubmissionId);
 	}
 }

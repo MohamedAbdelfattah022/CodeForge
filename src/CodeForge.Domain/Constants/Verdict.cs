@@ -3,10 +3,9 @@
 public enum Verdict {
 	Pending,
 	Accepted,
-	Wa,
-	Tle,
-	Mle,
-	Re,
-	Ce,
-	Ac
+	WrongAnswer,
+	TimeLimitExceeded,
+	MemoryLimitExceeded,
+	RuntimeError,
+	CompilationError,
 }

@@ -15,7 +15,7 @@ if (app.Environment.IsDevelopment()) {
 	app.MapScalarApiReference();
 }
 
-app.MapIdentityApi<User>()
+app.MapGroup("/api").MapIdentityApi<User>()
 	.WithTags("Identity");
 
 app.UseAuthorization();

@@ -2,6 +2,6 @@
 
 namespace CodeForge.Domain.Entities;
 
-public class User : IdentityUser {
-	public virtual ICollection<Submission> Submissions { get; set; } = new List<Submission>();
+public sealed class User : IdentityUser {
+	public ICollection<Submission> Submissions { get; set; } = new List<Submission>();
 }
