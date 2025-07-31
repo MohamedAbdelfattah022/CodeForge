@@ -1,5 +1,8 @@
-﻿namespace CodeForge.Domain.Constants;
+﻿using System.Text.Json.Serialization;
 
+namespace CodeForge.Domain.Constants;
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Verdict {
 	Pending,
 	Accepted,

@@ -12,6 +12,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeForge.Domain", "src\Cod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeForge.Infrastructure", "src\CodeForge.Infrastructure\CodeForge.Infrastructure.csproj", "{7FC0DA3F-ACCB-4880-A0AE-E24238F469EA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Judge Server", "Judge Server", "{A1766467-7CC3-48DB-9056-5AC1335BA130}"
+	ProjectSection(SolutionItems) = preProject
+		src\Judge Server\dockerfile = src\Judge Server\dockerfile
+		src\Judge Server\NoldbachTestcases.json = src\Judge Server\NoldbachTestcases.json
+		src\Judge Server\run.sh = src\Judge Server\run.sh
+		src\Judge Server\run_v1.sh = src\Judge Server\run_v1.sh
+		src\Judge Server\s = src\Judge Server\s
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockerService", "DockerService\DockerService.csproj", "{0D772660-D25B-4839-B1B2-5182ADB1AB6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +33,8 @@ Global
 		{A170FD19-58A9-41A7-B3DC-C65CD99673BE} = {5E02DA87-543A-49CB-B178-D107C99AF1C1}
 		{507C0786-0DF8-4EB4-A479-611DAD9D5220} = {5E02DA87-543A-49CB-B178-D107C99AF1C1}
 		{7FC0DA3F-ACCB-4880-A0AE-E24238F469EA} = {5E02DA87-543A-49CB-B178-D107C99AF1C1}
+		{A1766467-7CC3-48DB-9056-5AC1335BA130} = {5E02DA87-543A-49CB-B178-D107C99AF1C1}
+		{0D772660-D25B-4839-B1B2-5182ADB1AB6B} = {A1766467-7CC3-48DB-9056-5AC1335BA130}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{250E79C7-C72D-476B-944D-EB86E8720EB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -40,5 +53,9 @@ Global
 		{7FC0DA3F-ACCB-4880-A0AE-E24238F469EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FC0DA3F-ACCB-4880-A0AE-E24238F469EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FC0DA3F-ACCB-4880-A0AE-E24238F469EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D772660-D25B-4839-B1B2-5182ADB1AB6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D772660-D25B-4839-B1B2-5182ADB1AB6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D772660-D25B-4839-B1B2-5182ADB1AB6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D772660-D25B-4839-B1B2-5182ADB1AB6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

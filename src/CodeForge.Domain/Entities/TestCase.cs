@@ -1,4 +1,6 @@
-﻿namespace CodeForge.Domain.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace CodeForge.Domain.Entities;
 
 public sealed class TestCase {
 	public int Id { get; set; }
@@ -11,5 +13,5 @@ public sealed class TestCase {
 
 	public bool IsVisible { get; set; } = true;
 
-	public Problem Problem { get; set; }
+	[JsonIgnore] public Problem Problem { get; set; }
 }

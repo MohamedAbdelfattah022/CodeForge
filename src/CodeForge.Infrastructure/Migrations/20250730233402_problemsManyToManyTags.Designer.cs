@@ -4,6 +4,7 @@ using CodeForge.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeForge.Infrastructure.Migrations
 {
     [DbContext(typeof(CodeForgeDbContext))]
-    partial class CodeForgeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250730233402_problemsManyToManyTags")]
+    partial class problemsManyToManyTags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,8 +41,10 @@ namespace CodeForge.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Difficulty")
-                        .HasColumnType("int");
+                    b.Property<string>("Difficulty")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -47,7 +52,7 @@ namespace CodeForge.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Problems", (string)null);
+                    b.ToTable("Problems");
                 });
 
             modelBuilder.Entity("CodeForge.Domain.Entities.Submission", b =>
@@ -82,8 +87,10 @@ namespace CodeForge.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Verdict")
-                        .HasColumnType("int");
+                    b.Property<string>("Verdict")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
@@ -91,7 +98,7 @@ namespace CodeForge.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Submissions", (string)null);
+                    b.ToTable("Submissions");
                 });
 
             modelBuilder.Entity("CodeForge.Domain.Entities.Tag", b =>
@@ -108,7 +115,7 @@ namespace CodeForge.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("CodeForge.Domain.Entities.TestCase", b =>
@@ -137,7 +144,7 @@ namespace CodeForge.Infrastructure.Migrations
 
                     b.HasIndex("ProblemId");
 
-                    b.ToTable("TestCases", (string)null);
+                    b.ToTable("TestCases");
                 });
 
             modelBuilder.Entity("CodeForge.Domain.Entities.User", b =>
@@ -350,7 +357,7 @@ namespace CodeForge.Infrastructure.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("ProblemTag", (string)null);
+                    b.ToTable("ProblemTag");
                 });
 
             modelBuilder.Entity("CodeForge.Domain.Entities.Submission", b =>

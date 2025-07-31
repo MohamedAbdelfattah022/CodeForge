@@ -10,15 +10,11 @@ public class CodeForgeDbContext(DbContextOptions<CodeForgeDbContext> options) : 
 	public DbSet<Submission> Submissions { get; set; }
 	public DbSet<TestCase> TestCases { get; set; }
 	public DbSet<Tag> Tags { get; set; }
-	public DbSet<ProblemTag> ProblemTags { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder) {
 		base.OnModelCreating(modelBuilder);
 
 		modelBuilder.ApplyConfiguration(new ProblemConfiguration());
 		modelBuilder.ApplyConfiguration(new UserConfiguration());
-		modelBuilder.ApplyConfiguration(new SubmissionConfiguration());
-		modelBuilder.ApplyConfiguration(new TagConfiguration());
-		modelBuilder.ApplyConfiguration(new ProblemTagConfiguration());
 	}
 }
