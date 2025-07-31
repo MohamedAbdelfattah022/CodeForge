@@ -1,0 +1,23 @@
+FROM alpine:3.20
+
+RUN apk add --no-cache \
+    build-base \
+    openjdk17 \
+    python3 \
+    curl \
+    bash \
+    diffutils \
+    coreutils \
+    jq
+
+RUN adduser -D judge
+WORKDIR /home/judge/workspace
+
+COPY run.sh /home/judge/run.sh
+RUN chmod +x /home/judge/run.sh && chown -R judge:judge /home/judge
+
+USER judge
+
+ENV MAX_EXECUTION_TIME=1
+
+ENTRYPOINT ["/home/judge/run.sh"]
