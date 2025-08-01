@@ -3,8 +3,7 @@ using CodeForge.Domain.Constants;
 
 namespace CodeForge.Domain.Entities;
 
-public sealed class Submission {
-	public int Id { get; set; }
+public sealed class Submission : BaseEntity {
 	public int ProblemId { get; set; }
 	public string UserId { get; set; }
 	public string Code { get; set; } = string.Empty;

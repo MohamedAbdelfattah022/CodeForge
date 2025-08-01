@@ -20,5 +20,7 @@ public static class ServiceCollectionExtension {
 			.AddEntityFrameworkStores<CodeForgeDbContext>();
 
 		services.AddScoped<IProblemsRepository, ProblemsRepository>();
+		services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+		services.AddScoped<ITestcasesRepository, TestcasesRepository>();
 	}
 }

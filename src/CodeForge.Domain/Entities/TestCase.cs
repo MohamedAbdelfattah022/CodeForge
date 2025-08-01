@@ -2,9 +2,7 @@
 
 namespace CodeForge.Domain.Entities;
 
-public sealed class TestCase {
-	public int Id { get; set; }
-
+public sealed class TestCase : BaseEntity {
 	public int ProblemId { get; set; }
 
 	public string Input { get; set; }
