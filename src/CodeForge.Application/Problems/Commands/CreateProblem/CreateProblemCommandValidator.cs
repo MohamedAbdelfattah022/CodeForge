@@ -5,7 +5,6 @@ namespace CodeForge.Application.Problems.Commands.CreateProblem;
 public class CreateProblemCommandValidator : AbstractValidator<CreateProblemCommand> {
 	public CreateProblemCommandValidator() {
 		RuleFor(x => x.Difficulty)
-			.NotEmpty()
 			.IsInEnum()
 			.WithMessage("Difficulty must be a valid enum value.");
 		

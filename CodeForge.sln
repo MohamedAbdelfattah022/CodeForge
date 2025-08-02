@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Judge Server", "Judge Serve
 		src\Judge Server\s = src\Judge Server\s
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockerService", "DockerService\DockerService.csproj", "{0D772660-D25B-4839-B1B2-5182ADB1AB6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codeforge.Application.Problems.Tests.Unit", "test\Codeforge.Application.Problems.Tests.Unit\Codeforge.Application.Problems.Tests.Unit.csproj", "{4496479C-C910-4D97-BB84-5C4342226B68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,7 +34,7 @@ Global
 		{507C0786-0DF8-4EB4-A479-611DAD9D5220} = {5E02DA87-543A-49CB-B178-D107C99AF1C1}
 		{7FC0DA3F-ACCB-4880-A0AE-E24238F469EA} = {5E02DA87-543A-49CB-B178-D107C99AF1C1}
 		{A1766467-7CC3-48DB-9056-5AC1335BA130} = {5E02DA87-543A-49CB-B178-D107C99AF1C1}
-		{0D772660-D25B-4839-B1B2-5182ADB1AB6B} = {A1766467-7CC3-48DB-9056-5AC1335BA130}
+		{4496479C-C910-4D97-BB84-5C4342226B68} = {E3815878-18F3-49DF-9177-DC4B5721E358}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{250E79C7-C72D-476B-944D-EB86E8720EB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -53,9 +53,9 @@ Global
 		{7FC0DA3F-ACCB-4880-A0AE-E24238F469EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FC0DA3F-ACCB-4880-A0AE-E24238F469EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FC0DA3F-ACCB-4880-A0AE-E24238F469EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D772660-D25B-4839-B1B2-5182ADB1AB6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D772660-D25B-4839-B1B2-5182ADB1AB6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D772660-D25B-4839-B1B2-5182ADB1AB6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D772660-D25B-4839-B1B2-5182ADB1AB6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4496479C-C910-4D97-BB84-5C4342226B68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4496479C-C910-4D97-BB84-5C4342226B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4496479C-C910-4D97-BB84-5C4342226B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4496479C-C910-4D97-BB84-5C4342226B68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

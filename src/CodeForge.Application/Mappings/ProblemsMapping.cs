@@ -12,14 +12,14 @@ public static class ProblemsMapping {
 				Description = problem.Description,
 				Difficulty = problem.Difficulty,
 				Constraints = problem.Constraints,
-				Tags = problem.Tags.Select(t => t.Name).ToList(),
-				Submissions = problem.Submissions.Select(s => new ProblemDtoSubmission
+				Tags = (problem.Tags ?? Enumerable.Empty<Tag>()).Select(t => t.Name).ToList(),
+				Submissions = (problem.Submissions ?? Enumerable.Empty<Submission>()).Select(s => new ProblemDtoSubmission
 					{
 						Verdict = s.Verdict,
 						Language = s.Language,
 						SubmittedAt = s.SubmittedAt
 					}).ToList(),
-				TestCases = problem.TestCases.ToList()
+				TestCases = (problem.TestCases ?? Enumerable.Empty<TestCase>()).ToList()
 			};
 	}
 }
