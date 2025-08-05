@@ -1,0 +1,86 @@
+using CodeForge.Application.Testcases.Commands.DeleteTestcase;
+using CodeForge.Domain.Entities;
+using CodeForge.Domain.Exceptions;
+using CodeForge.Domain.Repositories;
+using FluentValidation;
+using Microsoft.Extensions.Logging;
+
+namespace Codeforge.Application.Testcases.Tests.Unit.Commands.DeleteTestcase;
+
+public class DeleteTestcaseCommandHandlerTests {
+	private readonly Fixture _fixture = new();
+	private readonly DeleteTestcaseCommandHandler _handler;
+	private readonly ILogger<DeleteTestcaseCommandHandler> _logger = Substitute.For<ILogger<DeleteTestcaseCommandHandler>>();
+	private readonly ITestcasesRepository _testcasesRepository = Substitute.For<ITestcasesRepository>();
+
+	public DeleteTestcaseCommandHandlerTests() {
+		_handler = new DeleteTestcaseCommandHandler(_logger, _testcasesRepository);
+		_fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+			.ForEach(b => _fixture.Behaviors.Remove(b));
+		_fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+	}
+
+	[Fact]
+	public async Task Handle_ShouldDeleteTestcase_WhenValidCommandIsProvided() {
+		// Arrange
+		var testcaseId = _fixture.Create<int>();
+		var command = new DeleteTestcaseCommand(testcaseId);
+		var testcase = _fixture.Create<TestCase>();
+
+		_testcasesRepository.GetByIdAsync(testcaseId).Returns(testcase);
+
+		// Act
+		await _handler.Handle(command, CancellationToken.None);
+
+		// Assert
+		await _testcasesRepository.Received(1).GetByIdAsync(testcaseId);
+		await _testcasesRepository.Received(1).DeleteAsync(testcase);
+	}
+
+	[Theory]
+	[InlineData(0)]
+	[InlineData(-1)]
+	public async Task Handle_ShouldThrowValidationException_WhenTestcaseIdIsLessThanOrEqualZero(int id) {
+		// Arrange
+		var command = new DeleteTestcaseCommand(id);
+
+		// Act
+		var act = () => _handler.Handle(command, CancellationToken.None);
+
+		// Assert
+		await act.Should().ThrowAsync<ValidationException>()
+			.WithMessage("TestcaseId must be positive.");
+	}
+
+	[Fact]
+	public async Task Handle_ShouldThrowNotFoundException_WhenTestcaseDoesNotExist() {
+		// Arrange
+		var testcaseId = _fixture.Create<int>();
+		var command = new DeleteTestcaseCommand(testcaseId);
+
+		_testcasesRepository.GetByIdAsync(testcaseId).Returns((TestCase?)null);
+
+		// Act
+		var act = () => _handler.Handle(command, CancellationToken.None);
+
+		// Assert
+		await act.Should().ThrowAsync<NotFoundException>()
+			.WithMessage($"*{nameof(TestCase)}*{testcaseId}*");
+	}
+
+	[Fact]
+	public async Task Handle_ShouldNotCallDeleteAsync_WhenTestcaseNotFound() {
+		// Arrange
+		var testcaseId = _fixture.Create<int>();
+		var command = new DeleteTestcaseCommand(testcaseId);
+
+		_testcasesRepository.GetByIdAsync(testcaseId).Returns((TestCase?)null);
+
+		// Act
+		var act = () => _handler.Handle(command, CancellationToken.None);
+
+		// Assert
+		await act.Should().ThrowAsync<NotFoundException>();
+		await _testcasesRepository.DidNotReceive().DeleteAsync(Arg.Any<TestCase>());
+	}
+}
