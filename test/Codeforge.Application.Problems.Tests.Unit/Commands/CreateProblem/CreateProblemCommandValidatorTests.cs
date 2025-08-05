@@ -1,8 +1,7 @@
-using AutoFixture;
 using CodeForge.Application.Problems.Commands.CreateProblem;
 using CodeForge.Domain.Constants;
 
-namespace Codeforge.Application.Problems.Tests.Unit;
+namespace Codeforge.Application.Problems.Tests.Unit.Commands.CreateProblem;
 
 public class CreateProblemCommandValidatorTests {
 	private readonly Fixture _fixture = new();

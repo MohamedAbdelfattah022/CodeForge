@@ -1,11 +1,10 @@
-using AutoFixture;
 using CodeForge.Application.Problems.Queries.GetAllProblems;
 using CodeForge.Domain.Entities;
 using CodeForge.Domain.Exceptions;
 using CodeForge.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 
-namespace Codeforge.Application.Problems.Tests.Unit;
+namespace Codeforge.Application.Problems.Tests.Unit.Queries.GetAllProblems;
 
 public class GetProblemsQueryHandlerTests {
 	private readonly Fixture _fixture = new();

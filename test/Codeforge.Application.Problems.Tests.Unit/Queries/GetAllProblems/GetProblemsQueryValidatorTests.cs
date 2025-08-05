@@ -1,6 +1,6 @@
 using CodeForge.Application.Problems.Queries.GetAllProblems;
 
-namespace Codeforge.Application.Problems.Tests.Unit;
+namespace Codeforge.Application.Problems.Tests.Unit.Queries.GetAllProblems;
 
 public class GetProblemsQueryValidatorTests {
 	[Theory]

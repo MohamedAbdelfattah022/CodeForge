@@ -1,14 +1,13 @@
-﻿using AutoFixture;
-using CodeForge.Application.Problems.Commands.CreateProblem;
+﻿using CodeForge.Application.Problems.Commands.CreateProblem;
 using CodeForge.Domain.Entities;
 using CodeForge.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 
-namespace Codeforge.Application.Problems.Tests.Unit;
+namespace Codeforge.Application.Problems.Tests.Unit.Commands.CreateProblem;
 
 public class CreateProblemCommandTests {
-	private readonly ILogger<CreateProblemCommandHandler> _logger = Substitute.For<ILogger<CreateProblemCommandHandler>>();
 	private readonly Fixture _fixture = new();
+	private readonly ILogger<CreateProblemCommandHandler> _logger = Substitute.For<ILogger<CreateProblemCommandHandler>>();
 	private readonly IProblemsRepository _problemsRepository = Substitute.For<IProblemsRepository>();
 
 	[Fact]

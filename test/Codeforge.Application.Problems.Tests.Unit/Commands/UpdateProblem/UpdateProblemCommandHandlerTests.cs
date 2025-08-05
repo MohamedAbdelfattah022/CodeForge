@@ -1,4 +1,3 @@
-using AutoFixture;
 using CodeForge.Application.Problems.Commands.UpdateProblem;
 using CodeForge.Domain.Constants;
 using CodeForge.Domain.Entities;
@@ -6,12 +5,12 @@ using CodeForge.Domain.Exceptions;
 using CodeForge.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 
-namespace Codeforge.Application.Problems.Tests.Unit;
+namespace Codeforge.Application.Problems.Tests.Unit.Commands.UpdateProblem;
 
 public class UpdateProblemCommandHandlerTests {
 	private readonly Fixture _fixture = new();
-	private readonly IProblemsRepository _problemsRepository = Substitute.For<IProblemsRepository>();
 	private readonly ILogger<UpdateProblemCommandHandler> _logger = Substitute.For<ILogger<UpdateProblemCommandHandler>>();
+	private readonly IProblemsRepository _problemsRepository = Substitute.For<IProblemsRepository>();
 
 	public UpdateProblemCommandHandlerTests() {
 		_fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()

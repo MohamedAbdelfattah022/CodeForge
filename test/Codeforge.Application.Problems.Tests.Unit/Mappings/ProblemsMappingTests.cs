@@ -1,9 +1,8 @@
-using AutoFixture;
 using CodeForge.Application.Mappings;
 using CodeForge.Domain.Constants;
 using CodeForge.Domain.Entities;
 
-namespace Codeforge.Application.Problems.Tests.Unit;
+namespace Codeforge.Application.Problems.Tests.Unit.Mappings;
 
 public class ProblemsMappingTests {
 	private readonly Fixture _fixture = new();

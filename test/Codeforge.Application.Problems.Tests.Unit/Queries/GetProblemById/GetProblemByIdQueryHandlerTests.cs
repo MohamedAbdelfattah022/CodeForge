@@ -1,4 +1,3 @@
-using AutoFixture;
 using CodeForge.Application.Problems.Queries.GetProblemById;
 using CodeForge.Domain.Entities;
 using CodeForge.Domain.Exceptions;
@@ -6,7 +5,7 @@ using CodeForge.Domain.Repositories;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
 
-namespace Codeforge.Application.Problems.Tests.Unit;
+namespace Codeforge.Application.Problems.Tests.Unit.Queries.GetProblemById;
 
 public class GetProblemByIdQueryHandlerTests {
 	private readonly Fixture _fixture = new();
