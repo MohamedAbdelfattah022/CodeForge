@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using CodeForge.Domain.Constants;
+using Codeforge.Domain.Constants;
 
-namespace CodeForge.Domain.Entities;
+namespace Codeforge.Domain.Entities;
 
 public sealed class Submission : BaseEntity {
 	public int ProblemId { get; set; }

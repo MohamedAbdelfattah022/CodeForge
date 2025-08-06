@@ -1,8 +1,8 @@
-using CodeForge.Application.Problems.Commands.UpdateProblem;
-using CodeForge.Domain.Constants;
-using CodeForge.Domain.Entities;
-using CodeForge.Domain.Exceptions;
-using CodeForge.Domain.Repositories;
+using Codeforge.Application.Problems.Commands.UpdateProblem;
+using Codeforge.Domain.Constants;
+using Codeforge.Domain.Entities;
+using Codeforge.Domain.Exceptions;
+using Codeforge.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace Codeforge.Application.Problems.Tests.Unit.Commands.UpdateProblem;

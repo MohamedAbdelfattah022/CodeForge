@@ -1,4 +1,4 @@
-﻿namespace CodeForge.Domain.Entities;
+﻿namespace Codeforge.Domain.Entities;
 
 public class BaseEntity {
 	public int Id { get; set; }

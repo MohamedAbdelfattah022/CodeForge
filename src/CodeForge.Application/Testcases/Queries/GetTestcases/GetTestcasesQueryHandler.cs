@@ -1,13 +1,13 @@
-﻿using CodeForge.Application.Dtos;
-using CodeForge.Application.Mappings;
-using CodeForge.Domain.Entities;
-using CodeForge.Domain.Exceptions;
-using CodeForge.Domain.Repositories;
+﻿using Codeforge.Application.Dtos;
+using Codeforge.Application.Mappings;
+using Codeforge.Domain.Entities;
+using Codeforge.Domain.Exceptions;
+using Codeforge.Domain.Repositories;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace CodeForge.Application.Testcases.Queries.GetTestcases;
+namespace Codeforge.Application.Testcases.Queries.GetTestcases;
 
 public class GetTestcasesQueryHandler(
 	ILogger<GetTestcasesQueryHandler> logger,

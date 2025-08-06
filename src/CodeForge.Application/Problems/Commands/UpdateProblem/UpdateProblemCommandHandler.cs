@@ -1,10 +1,10 @@
-﻿using CodeForge.Domain.Entities;
-using CodeForge.Domain.Exceptions;
-using CodeForge.Domain.Repositories;
+﻿using Codeforge.Domain.Entities;
+using Codeforge.Domain.Exceptions;
+using Codeforge.Domain.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace CodeForge.Application.Problems.Commands.UpdateProblem;
+namespace Codeforge.Application.Problems.Commands.UpdateProblem;
 
 public class UpdateProblemCommandHandler(
 	ILogger<UpdateProblemCommandHandler> logger,
@@ -17,7 +17,7 @@ public class UpdateProblemCommandHandler(
 			logger.LogWarning("Problem with id {id} not found.", request.Id);
 			throw new NotFoundException(nameof(Problem), request.Id.ToString());
 		}
-		
+
 		problem.Title = request.Title ?? problem.Title;
 		problem.Description = request.Description ?? problem.Description;
 		problem.Constraints = request.Constraints ?? problem.Constraints;

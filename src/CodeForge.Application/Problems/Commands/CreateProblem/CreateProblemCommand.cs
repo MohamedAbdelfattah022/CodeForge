@@ -1,8 +1,8 @@
-﻿using CodeForge.Domain.Constants;
-using CodeForge.Domain.Entities;
+﻿using Codeforge.Domain.Constants;
+using Codeforge.Domain.Entities;
 using MediatR;
 
-namespace CodeForge.Application.Problems.Commands.CreateProblem;
+namespace Codeforge.Application.Problems.Commands.CreateProblem;
 
 public class CreateProblemCommand : IRequest<int> {
 	public string Title { get; set; } = string.Empty;

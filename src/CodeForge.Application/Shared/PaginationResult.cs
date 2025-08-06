@@ -1,4 +1,4 @@
-﻿namespace CodeForge.Application.Shared;
+﻿namespace Codeforge.Application.Shared;
 
 public class PaginationResult<T>(List<T> data, int totalItems, int pageNumber = 1, int pageSize = 5) {
 	public List<T> Data { get; set; } = data;

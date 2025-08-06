@@ -1,7 +1,7 @@
-﻿using CodeForge.Application.Dtos;
+﻿using Codeforge.Application.Dtos;
 using MediatR;
 
-namespace CodeForge.Application.Testcases.Queries.GetProblemTestcase;
+namespace Codeforge.Application.Testcases.Queries.GetProblemTestcase;
 
 public class GetProblemTestcaseQuery(int problemId, int testcaseId) : IRequest<TestcaseDto> {
 	public int ProblemId { get; set; } = problemId;

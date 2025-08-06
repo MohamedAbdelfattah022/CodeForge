@@ -1,14 +1,16 @@
-﻿using CodeForge.Domain.Entities;
-using CodeForge.Domain.Repositories;
-using CodeForge.Infrastructure.Contexts;
+﻿using Codeforge.Domain.Entities;
+using Codeforge.Domain.Repositories;
+using Codeforge.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace CodeForge.Infrastructure.Repositories;
+namespace Codeforge.Infrastructure.Repositories;
 
-public class BaseRepository<TEntity>(CodeForgeDbContext dbContext) : IBaseRepository<TEntity> where TEntity : BaseEntity {
+public class BaseRepository<TEntity>(CodeforgeDbContext dbContext) : IBaseRepository<TEntity> where TEntity : BaseEntity {
 	private readonly DbSet<TEntity> _dbSet = dbContext.Set<TEntity>();
 
-	public virtual async Task<TEntity?> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
+	public virtual async Task<TEntity?> GetByIdAsync(int id) {
+		return await _dbSet.FindAsync(id);
+	}
 
 
 	public virtual async Task<(IEnumerable<TEntity>?, int count)> GetAllAsync(int pageNumber, int pageSize) {

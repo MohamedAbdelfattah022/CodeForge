@@ -1,7 +1,7 @@
-﻿using CodeForge.Domain.Exceptions;
+﻿using Codeforge.Domain.Exceptions;
 using FluentValidation;
 
-namespace CodeForge.Api.Middlewares;
+namespace Codeforge.Api.Middlewares;
 
 public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger) : IMiddleware {
 	public async Task InvokeAsync(HttpContext context, RequestDelegate next) {
@@ -16,7 +16,7 @@ public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> lo
 		}
 		catch (ValidationException e) {
 			logger.LogWarning("ValidationException: {@Message}", e.Errors);
-			
+
 			context.Response.StatusCode = 500;
 			await context.Response.WriteAsJsonAsync(e.Message);
 		}

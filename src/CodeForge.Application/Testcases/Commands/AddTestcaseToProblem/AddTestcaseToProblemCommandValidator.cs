@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace CodeForge.Application.Testcases.Commands.AddTestcaseToProblem;
+namespace Codeforge.Application.Testcases.Commands.AddTestcaseToProblem;
 
 public class AddTestcaseToProblemCommandValidator : AbstractValidator<AddTestcaseToProblemCommand> {
 	public AddTestcaseToProblemCommandValidator() {

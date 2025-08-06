@@ -1,7 +1,7 @@
-﻿using CodeForge.Domain.Constants;
-using CodeForge.Domain.Entities;
+﻿using Codeforge.Domain.Constants;
+using Codeforge.Domain.Entities;
 
-namespace CodeForge.Application.Dtos;
+namespace Codeforge.Application.Dtos;
 
 public class ProblemDto {
 	public int Id { get; set; }

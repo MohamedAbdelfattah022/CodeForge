@@ -1,4 +1,4 @@
-﻿namespace CodeForge.Application.Dtos;
+﻿namespace Codeforge.Application.Dtos;
 
 public class TestcaseDto {
 	public int Id { get; set; }

@@ -1,6 +1,6 @@
-using CodeForge.Application.Mappings;
-using CodeForge.Domain.Constants;
-using CodeForge.Domain.Entities;
+using Codeforge.Application.Mappings;
+using Codeforge.Domain.Constants;
+using Codeforge.Domain.Entities;
 
 namespace Codeforge.Application.Problems.Tests.Unit.Mappings;
 

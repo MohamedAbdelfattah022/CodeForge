@@ -1,6 +1,6 @@
-﻿using CodeForge.Application.Problems.Commands.CreateProblem;
-using CodeForge.Domain.Entities;
-using CodeForge.Domain.Repositories;
+﻿using Codeforge.Application.Problems.Commands.CreateProblem;
+using Codeforge.Domain.Entities;
+using Codeforge.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace Codeforge.Application.Problems.Tests.Unit.Commands.CreateProblem;

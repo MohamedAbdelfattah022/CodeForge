@@ -1,7 +1,7 @@
-﻿using CodeForge.Domain.Constants;
+﻿using Codeforge.Domain.Constants;
 using MediatR;
 
-namespace CodeForge.Application.Problems.Commands.UpdateProblem;
+namespace Codeforge.Application.Problems.Commands.UpdateProblem;
 
 public class UpdateProblemCommand : IRequest {
 	public int Id { get; set; }

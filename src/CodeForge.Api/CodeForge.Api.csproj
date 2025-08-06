@@ -9,17 +9,17 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Scalar.AspNetCore" Version="2.6.4" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
-        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+        <PackageReference Include="Scalar.AspNetCore" Version="2.6.4"/>
+        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0"/>
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CodeForge.Application\CodeForge.Application.csproj" />
-      <ProjectReference Include="..\CodeForge.Infrastructure\CodeForge.Infrastructure.csproj" />
+        <ProjectReference Include="..\Codeforge.Application\Codeforge.Application.csproj"/>
+        <ProjectReference Include="..\Codeforge.Infrastructure\Codeforge.Infrastructure.csproj"/>
     </ItemGroup>
 
 </Project>

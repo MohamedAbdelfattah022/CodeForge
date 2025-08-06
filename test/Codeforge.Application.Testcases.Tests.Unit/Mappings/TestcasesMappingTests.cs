@@ -1,6 +1,6 @@
-using CodeForge.Application.Dtos;
-using CodeForge.Application.Mappings;
-using CodeForge.Domain.Entities;
+using Codeforge.Application.Dtos;
+using Codeforge.Application.Mappings;
+using Codeforge.Domain.Entities;
 
 namespace Codeforge.Application.Testcases.Tests.Unit.Mappings;
 

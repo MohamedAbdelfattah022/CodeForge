@@ -1,6 +1,6 @@
-﻿using CodeForge.Domain.Constants;
+﻿using Codeforge.Domain.Constants;
 
-namespace CodeForge.Domain.Entities;
+namespace Codeforge.Domain.Entities;
 
 public sealed class Problem : BaseEntity {
 	public string Title { get; set; }

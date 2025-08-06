@@ -1,7 +1,7 @@
-﻿using CodeForge.Domain.Entities;
+﻿using Codeforge.Domain.Entities;
 using MediatR;
 
-namespace CodeForge.Application.Testcases.Commands.AddTestcaseToProblem;
+namespace Codeforge.Application.Testcases.Commands.AddTestcaseToProblem;
 
 public class AddTestcaseToProblemCommand : IRequest<int> {
 	public int ProblemId { get; set; }

@@ -1,8 +1,8 @@
-using CodeForge.Api.Extensions;
-using CodeForge.Api.Middlewares;
-using CodeForge.Application.Extentions;
-using CodeForge.Domain.Entities;
-using CodeForge.Infrastructure.Extensions;
+using Codeforge.Api.Extensions;
+using Codeforge.Api.Middlewares;
+using Codeforge.Application.Extentions;
+using Codeforge.Domain.Entities;
+using Codeforge.Infrastructure.Extensions;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);

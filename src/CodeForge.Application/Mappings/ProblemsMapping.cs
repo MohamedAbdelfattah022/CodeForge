@@ -1,7 +1,7 @@
-﻿using CodeForge.Application.Dtos;
-using CodeForge.Domain.Entities;
+﻿using Codeforge.Application.Dtos;
+using Codeforge.Domain.Entities;
 
-namespace CodeForge.Application.Mappings;
+namespace Codeforge.Application.Mappings;
 
 public static class ProblemsMapping {
 	public static ProblemDto ToDto(this Problem problem) {

@@ -1,5 +1,5 @@
-﻿using CodeForge.Domain.Entities;
+﻿using Codeforge.Domain.Entities;
 
-namespace CodeForge.Domain.Repositories;
+namespace Codeforge.Domain.Repositories;
 
-public interface IProblemsRepository : IBaseRepository<Problem> {}
+public interface IProblemsRepository : IBaseRepository<Problem> { }

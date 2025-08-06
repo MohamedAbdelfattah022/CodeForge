@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CodeForge.Application.Testcases.Commands.UpdateTestcase;
+namespace Codeforge.Application.Testcases.Commands.UpdateTestcase;
 
 public class UpdateTestcaseCommand : IRequest {
 	public int TestcaseId { get; set; }

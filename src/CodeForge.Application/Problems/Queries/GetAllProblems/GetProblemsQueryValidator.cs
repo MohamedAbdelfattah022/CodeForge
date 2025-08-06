@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace CodeForge.Application.Problems.Queries.GetAllProblems;
+namespace Codeforge.Application.Problems.Queries.GetAllProblems;
 
 public class GetProblemsQueryValidator : AbstractValidator<GetProblemsQuery> {
 	public GetProblemsQueryValidator() {

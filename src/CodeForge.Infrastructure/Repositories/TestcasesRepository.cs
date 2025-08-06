@@ -1,11 +1,11 @@
-﻿using CodeForge.Domain.Entities;
-using CodeForge.Domain.Repositories;
-using CodeForge.Infrastructure.Contexts;
+﻿using Codeforge.Domain.Entities;
+using Codeforge.Domain.Repositories;
+using Codeforge.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace CodeForge.Infrastructure.Repositories;
+namespace Codeforge.Infrastructure.Repositories;
 
-public class TestcasesRepository(CodeForgeDbContext dbContext) : BaseRepository<TestCase>(dbContext), ITestcasesRepository {
+public class TestcasesRepository(CodeforgeDbContext dbContext) : BaseRepository<TestCase>(dbContext), ITestcasesRepository {
 	private readonly DbSet<TestCase> _dbSet = dbContext.Set<TestCase>();
 
 	public async Task<TestCase?> GetProblemTestcaseByIdAsync(int problemId, int testcaseId) {

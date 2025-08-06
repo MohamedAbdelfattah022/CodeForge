@@ -1,15 +1,13 @@
-﻿using CodeForge.Application.Dtos;
-using CodeForge.Application.Shared;
-using CodeForge.Application.Testcases.Commands.AddTestcaseToProblem;
-using CodeForge.Application.Testcases.Commands.DeleteTestcase;
-using CodeForge.Application.Testcases.Commands.UpdateTestcase;
-using CodeForge.Application.Testcases.Queries.GetProblemTestcase;
-using CodeForge.Application.Testcases.Queries.GetTestcases;
-using CodeForge.Domain.Repositories;
+﻿using Codeforge.Application.Dtos;
+using Codeforge.Application.Testcases.Commands.AddTestcaseToProblem;
+using Codeforge.Application.Testcases.Commands.DeleteTestcase;
+using Codeforge.Application.Testcases.Commands.UpdateTestcase;
+using Codeforge.Application.Testcases.Queries.GetProblemTestcase;
+using Codeforge.Application.Testcases.Queries.GetTestcases;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CodeForge.Api.Controllers;
+namespace Codeforge.Api.Controllers;
 
 [ApiController]
 [Route("api")]

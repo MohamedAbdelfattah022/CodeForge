@@ -1,8 +1,8 @@
-﻿using CodeForge.Domain.Entities;
+﻿using Codeforge.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CodeForge.Infrastructure.Configurations;
+namespace Codeforge.Infrastructure.Configurations;
 
 public class ProblemConfiguration : IEntityTypeConfiguration<Problem> {
 	public void Configure(EntityTypeBuilder<Problem> builder) {

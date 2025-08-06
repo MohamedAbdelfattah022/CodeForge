@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace CodeForge.Infrastructure.Migrations
+namespace Codeforge.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class SubmissionsEdited : Migration

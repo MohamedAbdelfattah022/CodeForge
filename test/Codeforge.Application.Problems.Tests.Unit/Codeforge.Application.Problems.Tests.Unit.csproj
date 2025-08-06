@@ -22,8 +22,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\CodeForge.Application\CodeForge.Application.csproj"/>
-        <ProjectReference Include="..\..\src\CodeForge.Domain\CodeForge.Domain.csproj"/>
+        <ProjectReference Include="..\..\src\Codeforge.Application\Codeforge.Application.csproj"/>
+        <ProjectReference Include="..\..\src\Codeforge.Domain\Codeforge.Domain.csproj"/>
     </ItemGroup>
 
 </Project>

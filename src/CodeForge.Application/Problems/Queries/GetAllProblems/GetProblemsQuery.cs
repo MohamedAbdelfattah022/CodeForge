@@ -1,9 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using CodeForge.Application.Dtos;
-using CodeForge.Application.Shared;
+﻿using Codeforge.Application.Dtos;
+using Codeforge.Application.Shared;
 using MediatR;
 
-namespace CodeForge.Application.Problems.Queries.GetAllProblems;
+namespace Codeforge.Application.Problems.Queries.GetAllProblems;
 
 public class GetProblemsQuery : IRequest<PaginationResult<ProblemDto>> {
 	public int PageNumber { get; set; } = 1;

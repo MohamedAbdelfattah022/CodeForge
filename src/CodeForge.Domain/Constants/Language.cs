@@ -1,4 +1,4 @@
-﻿namespace CodeForge.Domain.Constants;
+﻿namespace Codeforge.Domain.Constants;
 
 public static class Language {
 	public const string Cpp = "Cpp";

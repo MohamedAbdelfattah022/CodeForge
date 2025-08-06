@@ -1,13 +1,13 @@
-﻿using CodeForge.Application.Dtos;
-using CodeForge.Application.Mappings;
-using CodeForge.Application.Shared;
-using CodeForge.Domain.Entities;
-using CodeForge.Domain.Exceptions;
-using CodeForge.Domain.Repositories;
+﻿using Codeforge.Application.Dtos;
+using Codeforge.Application.Mappings;
+using Codeforge.Application.Shared;
+using Codeforge.Domain.Entities;
+using Codeforge.Domain.Exceptions;
+using Codeforge.Domain.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace CodeForge.Application.Problems.Queries.GetAllProblems;
+namespace Codeforge.Application.Problems.Queries.GetAllProblems;
 
 public class GetProblemsQueryHandler(
 	ILogger<GetProblemsQueryHandler> logger,
@@ -23,10 +23,10 @@ public class GetProblemsQueryHandler(
 
 		return new PaginationResult<ProblemDto>
 		(
-			data: results,
-			totalItems: count,
-			pageNumber: request.PageNumber,
-			pageSize: request.PageSize
+			results,
+			count,
+			request.PageNumber,
+			request.PageSize
 		);
 	}
 }

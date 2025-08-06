@@ -1,5 +1,5 @@
-using CodeForge.Application.Testcases.Commands.AddTestcaseToProblem;
-using CodeForge.Domain.Entities;
+using Codeforge.Application.Testcases.Commands.AddTestcaseToProblem;
+using Codeforge.Domain.Entities;
 
 namespace Codeforge.Application.Testcases.Tests.Unit.Commands.AddTestcaseToProblem;
 

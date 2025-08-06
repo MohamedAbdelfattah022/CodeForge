@@ -1,4 +1,4 @@
-using CodeForge.Application.Problems.Queries.GetAllProblems;
+using Codeforge.Application.Problems.Queries.GetAllProblems;
 
 namespace Codeforge.Application.Problems.Tests.Unit.Queries.GetAllProblems;
 

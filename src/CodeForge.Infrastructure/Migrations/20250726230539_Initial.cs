@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CodeForge.Infrastructure.Migrations
+namespace Codeforge.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

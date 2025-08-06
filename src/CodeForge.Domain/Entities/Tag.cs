@@ -1,4 +1,4 @@
-﻿namespace CodeForge.Domain.Entities;
+﻿namespace Codeforge.Domain.Entities;
 
 public sealed class Tag : BaseEntity {
 	public string Name { get; set; }

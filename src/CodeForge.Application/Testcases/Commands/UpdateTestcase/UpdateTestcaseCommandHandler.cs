@@ -1,11 +1,11 @@
-﻿using CodeForge.Domain.Entities;
-using CodeForge.Domain.Exceptions;
-using CodeForge.Domain.Repositories;
+﻿using Codeforge.Domain.Entities;
+using Codeforge.Domain.Exceptions;
+using Codeforge.Domain.Repositories;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace CodeForge.Application.Testcases.Commands.UpdateTestcase;
+namespace Codeforge.Application.Testcases.Commands.UpdateTestcase;
 
 public class UpdateTestcaseCommandHandler(
 	ILogger<UpdateTestcaseCommandHandler> logger,

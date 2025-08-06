@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace CodeForge.Domain.Entities;
+namespace Codeforge.Domain.Entities;
 
 public sealed class TestCase : BaseEntity {
 	public int ProblemId { get; set; }

@@ -1,11 +1,11 @@
-﻿using CodeForge.Domain.Entities;
-using CodeForge.Domain.Repositories;
-using CodeForge.Infrastructure.Contexts;
+﻿using Codeforge.Domain.Entities;
+using Codeforge.Domain.Repositories;
+using Codeforge.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace CodeForge.Infrastructure.Repositories;
+namespace Codeforge.Infrastructure.Repositories;
 
-public class ProblemsRepository(CodeForgeDbContext dbContext) : BaseRepository<Problem>(dbContext), IProblemsRepository {
+public class ProblemsRepository(CodeforgeDbContext dbContext) : BaseRepository<Problem>(dbContext), IProblemsRepository {
 	private readonly DbSet<Problem> _dbSet = dbContext.Set<Problem>();
 
 	public override async Task<Problem?> GetByIdAsync(int id) {

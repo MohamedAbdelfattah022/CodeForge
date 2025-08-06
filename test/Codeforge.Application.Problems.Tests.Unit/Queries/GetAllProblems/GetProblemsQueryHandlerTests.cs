@@ -1,7 +1,7 @@
-using CodeForge.Application.Problems.Queries.GetAllProblems;
-using CodeForge.Domain.Entities;
-using CodeForge.Domain.Exceptions;
-using CodeForge.Domain.Repositories;
+using Codeforge.Application.Problems.Queries.GetAllProblems;
+using Codeforge.Domain.Entities;
+using Codeforge.Domain.Exceptions;
+using Codeforge.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace Codeforge.Application.Problems.Tests.Unit.Queries.GetAllProblems;

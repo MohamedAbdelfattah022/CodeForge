@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace CodeForge.Domain.Constants;
+namespace Codeforge.Domain.Constants;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Verdict {
@@ -10,5 +10,5 @@ public enum Verdict {
 	TimeLimitExceeded,
 	MemoryLimitExceeded,
 	RuntimeError,
-	CompilationError,
+	CompilationError
 }

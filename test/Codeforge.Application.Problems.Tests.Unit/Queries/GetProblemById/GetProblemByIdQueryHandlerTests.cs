@@ -1,7 +1,7 @@
-using CodeForge.Application.Problems.Queries.GetProblemById;
-using CodeForge.Domain.Entities;
-using CodeForge.Domain.Exceptions;
-using CodeForge.Domain.Repositories;
+using Codeforge.Application.Problems.Queries.GetProblemById;
+using Codeforge.Domain.Entities;
+using Codeforge.Domain.Exceptions;
+using Codeforge.Domain.Repositories;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
 

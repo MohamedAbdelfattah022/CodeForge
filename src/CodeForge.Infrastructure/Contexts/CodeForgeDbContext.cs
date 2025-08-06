@@ -1,11 +1,11 @@
-﻿using CodeForge.Domain.Entities;
-using CodeForge.Infrastructure.Configurations;
+﻿using Codeforge.Domain.Entities;
+using Codeforge.Infrastructure.Configurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CodeForge.Infrastructure.Contexts;
+namespace Codeforge.Infrastructure.Contexts;
 
-public class CodeForgeDbContext(DbContextOptions<CodeForgeDbContext> options) : IdentityDbContext<User>(options) {
+public class CodeforgeDbContext(DbContextOptions<CodeforgeDbContext> options) : IdentityDbContext<User>(options) {
 	public DbSet<Problem> Problems { get; set; }
 	public DbSet<Submission> Submissions { get; set; }
 	public DbSet<TestCase> TestCases { get; set; }

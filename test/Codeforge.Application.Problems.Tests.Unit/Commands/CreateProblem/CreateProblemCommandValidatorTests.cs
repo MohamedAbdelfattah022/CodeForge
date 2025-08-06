@@ -1,5 +1,5 @@
-using CodeForge.Application.Problems.Commands.CreateProblem;
-using CodeForge.Domain.Constants;
+using Codeforge.Application.Problems.Commands.CreateProblem;
+using Codeforge.Domain.Constants;
 
 namespace Codeforge.Application.Problems.Tests.Unit.Commands.CreateProblem;
 

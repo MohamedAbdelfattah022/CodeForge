@@ -1,8 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using CodeForge.Application.Dtos;
+﻿using Codeforge.Application.Dtos;
 using MediatR;
 
-namespace CodeForge.Application.Problems.Queries.GetProblemById;
+namespace Codeforge.Application.Problems.Queries.GetProblemById;
 
 public class GetProblemByIdQuery(int id) : IRequest<ProblemDto> {
 	public int Id { get; } = id;
