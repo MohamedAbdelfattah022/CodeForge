@@ -21,5 +21,6 @@ public static class ServiceCollectionExtension {
 		services.AddScoped<IProblemsRepository, ProblemsRepository>();
 		services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 		services.AddScoped<ITestcasesRepository, TestcasesRepository>();
+		services.AddScoped<ITagsRepository, TagsRepository>();
 	}
 }

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Codeforge.Infrastructure.Repositories;
 
 public class ProblemsRepository(CodeforgeDbContext dbContext) : BaseRepository<Problem>(dbContext), IProblemsRepository {
+	private readonly CodeforgeDbContext _dbContext = dbContext;
 	private readonly DbSet<Problem> _dbSet = dbContext.Set<Problem>();
 
 	public override async Task<Problem?> GetByIdAsync(int id) {
@@ -28,5 +29,40 @@ public class ProblemsRepository(CodeforgeDbContext dbContext) : BaseRepository<P
 
 		var count = await _dbSet.CountAsync();
 		return (data, count);
+	}
+
+	public async Task<Problem?> GetByIdWithTagsAsync(int id, bool asTracking = true) {
+		var query = _dbSet
+			.Include(p => p.Tags)
+			.Where(p => p.Id == id);
+
+		return asTracking
+			? await query.FirstOrDefaultAsync()
+			: await query.AsNoTracking().FirstOrDefaultAsync();
+	}
+
+	public async Task AddTagToProblemAsync(Problem problem, Tag tag) {
+		if (_dbContext.Entry(problem).State == EntityState.Detached)
+			_dbContext.Attach(problem);
+
+		if (_dbContext.Entry(tag).State == EntityState.Detached)
+			_dbContext.Attach(tag);
+
+
+		if (problem.Tags.All(t => t.Id != tag.Id)) {
+			problem.Tags.Add(tag);
+			await _dbContext.SaveChangesAsync();
+		}
+	}
+
+	public async Task RemoveTagFromProblemAsync(Problem problem, int tagId) {
+		if (_dbContext.Entry(problem).State == EntityState.Detached)
+			_dbContext.Attach(problem);
+
+		var tag = problem.Tags.FirstOrDefault(t => t.Id == tagId);
+		if (tag is not null) {
+			problem.Tags.Remove(tag);
+			await _dbContext.SaveChangesAsync();
+		}
 	}
 }
