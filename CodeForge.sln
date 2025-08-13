@@ -12,15 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codeforge.Domain", "src\Cod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codeforge.Infrastructure", "src\Codeforge.Infrastructure\Codeforge.Infrastructure.csproj", "{7FC0DA3F-ACCB-4880-A0AE-E24238F469EA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Judge Server", "Judge Server", "{A1766467-7CC3-48DB-9056-5AC1335BA130}"
-	ProjectSection(SolutionItems) = preProject
-		src\Judge Server\dockerfile = src\Judge Server\dockerfile
-		src\Judge Server\NoldbachTestcases.json = src\Judge Server\NoldbachTestcases.json
-		src\Judge Server\run.sh = src\Judge Server\run.sh
-		src\Judge Server\run_v1.sh = src\Judge Server\run_v1.sh
-		src\Judge Server\s = src\Judge Server\s
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codeforge.Application.Problems.Tests.Unit", "test\Codeforge.Application.Problems.Tests.Unit\Codeforge.Application.Problems.Tests.Unit.csproj", "{4496479C-C910-4D97-BB84-5C4342226B68}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codeforge.Application.Testcases.Tests.Unit", "test\Codeforge.Application.Testcases.Tests.Unit\Codeforge.Application.Testcases.Tests.Unit.csproj", "{941B45C6-D6EE-4C9B-9A18-9D71DB2F4376}"
@@ -37,7 +28,6 @@ Global
 		{A170FD19-58A9-41A7-B3DC-C65CD99673BE} = {5E02DA87-543A-49CB-B178-D107C99AF1C1}
 		{507C0786-0DF8-4EB4-A479-611DAD9D5220} = {5E02DA87-543A-49CB-B178-D107C99AF1C1}
 		{7FC0DA3F-ACCB-4880-A0AE-E24238F469EA} = {5E02DA87-543A-49CB-B178-D107C99AF1C1}
-		{A1766467-7CC3-48DB-9056-5AC1335BA130} = {5E02DA87-543A-49CB-B178-D107C99AF1C1}
 		{4496479C-C910-4D97-BB84-5C4342226B68} = {E3815878-18F3-49DF-9177-DC4B5721E358}
 		{941B45C6-D6EE-4C9B-9A18-9D71DB2F4376} = {E3815878-18F3-49DF-9177-DC4B5721E358}
 		{07CD3F1A-6EA1-400B-B4E0-31CEC9E401C0} = {E3815878-18F3-49DF-9177-DC4B5721E358}

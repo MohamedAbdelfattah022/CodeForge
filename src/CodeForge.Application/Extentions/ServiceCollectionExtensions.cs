@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Codeforge.Application.Submissions.Services;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 
@@ -12,5 +13,7 @@ public static class ServiceCollectionExtensions {
 
 		services.AddValidatorsFromAssembly(applicationAssembly)
 			.AddFluentValidationAutoValidation(cfg => cfg.EnablePathBindingSourceAutomaticValidation = true);
+		
+		services.AddHostedService<SubmissionConsumerService>();
 	}
 }

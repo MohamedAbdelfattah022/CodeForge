@@ -1,6 +1,9 @@
 ﻿using Codeforge.Domain.Entities;
+using Codeforge.Domain.Interfaces;
+using Codeforge.Domain.Options;
 using Codeforge.Domain.Repositories;
 using Codeforge.Infrastructure.Contexts;
+using Codeforge.Infrastructure.Messaging;
 using Codeforge.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -22,5 +25,12 @@ public static class ServiceCollectionExtension {
 		services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 		services.AddScoped<ITestcasesRepository, TestcasesRepository>();
 		services.AddScoped<ITagsRepository, TagsRepository>();
+		services.AddScoped<ISubmissionsRepository, SubmissionsRepository>();
+		
+		services.Configure<RabbitMqOptions>(configuration.GetSection(RabbitMqOptions.SectionName));
+		services.Configure<SupabaseOptions>(configuration.GetSection(SupabaseOptions.SectionName));
+
+		services.AddScoped<IMessageProducer, MessageProducer>();
+		services.AddSingleton<IMessageConsumer, MessageConsumer>();
 	}
 }

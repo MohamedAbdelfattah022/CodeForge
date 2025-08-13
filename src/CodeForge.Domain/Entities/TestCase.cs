@@ -2,12 +2,13 @@
 
 namespace Codeforge.Domain.Entities;
 
+// TODO: rename input and output fields with url suffixes to avoid confusion
 public sealed class TestCase : BaseEntity {
 	public int ProblemId { get; set; }
 
-	public string Input { get; set; }
+	public required string Input { get; set; }
 
-	public string ExpectedOutput { get; set; }
+	public required string ExpectedOutput { get; set; }
 
 	public bool IsVisible { get; set; } = true;
 

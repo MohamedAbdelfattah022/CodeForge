@@ -20,4 +20,12 @@
         <PackageReference Include="SharpGrip.FluentValidation.AutoValidation.Mvc" Version="1.5.0"/>
     </ItemGroup>
 
+
+    <ItemGroup>
+      <Folder Include="Submissions\Queries\GetProblemSubmissions\" />
+      <Folder Include="Submissions\Queries\GetSubmissionById\" />
+      <Folder Include="Submissions\Queries\GetSubmissionStatus\" />
+      <Folder Include="Submissions\Queries\GetUserSubmissions\" />
+    </ItemGroup>
+
 </Project>
