@@ -2,4 +2,6 @@
 
 namespace Codeforge.Domain.Repositories;
 
-public interface ISubmissionsRepository : IBaseRepository<Submission> { }
+public interface ISubmissionsRepository : IBaseRepository<Submission> {
+	Task<List<Submission>> GetAllSubmissons(int problemId);
+}

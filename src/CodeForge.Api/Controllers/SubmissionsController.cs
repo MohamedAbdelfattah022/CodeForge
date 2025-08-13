@@ -1,7 +1,9 @@
+using Codeforge.Application.Dtos;
 using Codeforge.Application.Submissions.Commands.CreateSubmission;
-using Codeforge.Domain.Interfaces;
+using Codeforge.Application.Submissions.Queries.GetProblemSubmissions;
+using Codeforge.Application.Submissions.Queries.GetSubmissionById;
+using Codeforge.Application.Submissions.Queries.GetSubmissionStatus;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Codeforge.Api.Controllers;
@@ -15,4 +17,31 @@ public class SubmissionsController(IMediator mediator) : ControllerBase {
 		await mediator.Send(submissionCommand);
 		return Ok("Submission created successfully.");
 	}
+
+	[HttpGet("submissions/{submissionId:int}/status")]
+	public async Task<ActionResult<SubmissionStatusDto>> GetStatus(int submissionId) {
+		var result = await mediator.Send(new GetSubmissionStatusQuery(submissionId));
+		return Ok(result);
+	}
+
+	[HttpGet("problems/{problemId:int}/submissions/{submissionId:int}")]
+	public async Task<ActionResult<SubmissionDto>> GetSubmission(int problemId, int submissionId) {
+		var query = new GetSubmissionByIdQuery(submissionId, problemId);
+		var result = await mediator.Send(query);
+		return Ok(result);
+	}
+	
+	[HttpGet("problems/{problemId:int}/submissions")]
+	public async Task<ActionResult<List<SubmissionMetadata>>> GetSubmissions(int problemId) {
+		var query = new GetProblemSubmissionsQuery(problemId);
+		var result = await mediator.Send(query);
+		return Ok(result);
+	}
+	
+	[HttpGet("users/{userId:guid}/submissions")]
+	public async Task<ActionResult<List<SubmissionMetadata>>> GetUserSubmissions(Guid userId) {
+		// TODO: Implement user submissions retrieval logic
+		return NotFound("This endpoint is not implemented yet.");
+	}
+	
 }
