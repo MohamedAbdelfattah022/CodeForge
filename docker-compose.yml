@@ -1,0 +1,8 @@
+services:
+  rabbit-server:
+    image: rabbitmq:4-management
+    container_name: rabbit-server
+    hostname: rmq
+    ports:
+      - "5672:5672"
+      - "8080:15672"
