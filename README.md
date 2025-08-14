@@ -13,8 +13,7 @@
 
 ## About
 
-Codeforge is a comprehensive platform designed to manage coding problems, submissions, and user interactions. It is
-built using .NET technologies and follows a modular architecture to ensure scalability and maintainability.
+Codeforge is an Online Judge System designed to facilitate coding practice. It allows users to create, manage, and solve coding problems with various constraints and difficulty levels. The system supports user authentication, problem submission, and evaluation of solutions against predefined test cases.
 
 ## Features
 
@@ -24,6 +23,7 @@ built using .NET technologies and follows a modular architecture to ensure scala
 - **User Management**: Built-in user authentication and role-based access control.
 - **Tagging System**: Problems can be tagged for better categorization and searchability.
 - **Test Cases**: Define input/output test cases for problems to validate submissions.
+- **Asynchronous Processing**: Utilizes RabbitMQ and background jobs for handling long-running tasks and background processing.
 
 ## Technologies
 
@@ -35,6 +35,7 @@ built using .NET technologies and follows a modular architecture to ensure scala
 - **FluentValidation**: For validating user inputs.
 - **Serilog**: For logging.
 - **MediatR**: For implementing CQRS patterns.
+- **RabbitMQ**: For message queuing and handling asynchronous tasks.
 
 ### Testing Tools
 
