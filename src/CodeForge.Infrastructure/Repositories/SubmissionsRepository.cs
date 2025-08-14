@@ -16,4 +16,13 @@ public class SubmissionsRepository(CodeforgeDbContext dbContext) : BaseRepositor
 
 		return data;
 	}
+
+	public async Task<List<Submission>> GetUserSubmissionsAsync(string userId) {
+		var data = await _dbSet
+			.AsNoTracking()
+			.Where(s => s.UserId == userId)
+			.ToListAsync();
+
+		return data;
+	}
 }

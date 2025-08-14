@@ -16,7 +16,10 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment()) {
 	app.MapOpenApi();
-	app.MapScalarApiReference();
+	app.UseSwagger(options =>
+		options.RouteTemplate = "/openapi/{documentName}.json"
+	);
+	app.MapScalarApiReference(options => { options.WithTheme(ScalarTheme.Kepler); });
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();

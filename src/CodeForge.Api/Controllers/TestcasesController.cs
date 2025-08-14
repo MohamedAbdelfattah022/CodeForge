@@ -4,7 +4,9 @@ using Codeforge.Application.Testcases.Commands.DeleteTestcase;
 using Codeforge.Application.Testcases.Commands.UpdateTestcase;
 using Codeforge.Application.Testcases.Queries.GetProblemTestcase;
 using Codeforge.Application.Testcases.Queries.GetTestcases;
+using Codeforge.Domain.Constants;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Codeforge.Api.Controllers;
@@ -29,6 +31,7 @@ public class TestcasesController(ILogger<TestcasesController> logger, IMediator 
 	}
 
 	[HttpPost]
+	[Authorize(Roles = UserRoles.Admin)]
 	[Route("problems/{problemId:int}/[controller]")]
 	public async Task<ActionResult<int>> CreateTestcase([FromRoute] int problemId, [FromBody] AddTestcaseToProblemCommand command) {
 		command.ProblemId = problemId;
@@ -37,6 +40,7 @@ public class TestcasesController(ILogger<TestcasesController> logger, IMediator 
 	}
 
 	[HttpPatch]
+	[Authorize(Roles = UserRoles.Admin)]
 	[Route("[controller]/{testcaseId:int}")]
 	public async Task<IActionResult> UpdateTestcase([FromRoute] int testcaseId, [FromBody] UpdateTestcaseCommand command) {
 		command.TestcaseId = testcaseId;
@@ -46,6 +50,7 @@ public class TestcasesController(ILogger<TestcasesController> logger, IMediator 
 	}
 
 	[HttpDelete]
+	[Authorize(Roles = UserRoles.Admin)]
 	[Route("[controller]/{testcaseId:int}")]
 	public async Task<IActionResult> DeleteTestcase([FromRoute] int testcaseId) {
 		var command = new DeleteTestcaseCommand(testcaseId);
