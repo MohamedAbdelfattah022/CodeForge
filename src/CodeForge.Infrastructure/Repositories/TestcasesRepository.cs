@@ -21,4 +21,13 @@ public class TestcasesRepository(CodeforgeDbContext dbContext) : BaseRepository<
 
 		return data;
 	}
+
+	public async Task<List<TestCase>?> GetAllProblemTestcasesAsync(int problemId) {
+		var data = await _dbSet
+			.AsNoTracking()
+			.Where(tc => tc.ProblemId == problemId)
+			.ToListAsync();
+
+		return data;
+	}
 }

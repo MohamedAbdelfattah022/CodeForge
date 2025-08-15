@@ -17,8 +17,8 @@ public class SubmissionsController(IMediator mediator) : ControllerBase {
 	[Authorize]
 	public async Task<IActionResult> Submit(int problemId, CreateSubmissionCommand submissionCommand) {
 		submissionCommand.ProblemId = problemId;
-		await mediator.Send(submissionCommand);
-		return Ok("Submission created successfully.");
+		var id = await mediator.Send(submissionCommand);
+		return CreatedAtAction(nameof(GetSubmission), new { problemId, submissionId = id }, id);
 	}
 
 	[Authorize]

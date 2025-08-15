@@ -4,7 +4,6 @@ using MediatR;
 
 namespace Codeforge.Application.Submissions.Commands.CreateSubmission;
 
-// TODO: Add validation to the properties
 public class CreateSubmissionCommand : IRequest<int> {
 	[JsonIgnore] public int ProblemId { get; set; }
 	public required string Code { get; set; }
