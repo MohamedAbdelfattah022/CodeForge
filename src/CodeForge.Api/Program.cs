@@ -24,6 +24,8 @@ if (app.Environment.IsDevelopment()) {
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+app.UseCors("AllowLocalhost");
+
 app.MapGroup("/api").MapIdentityApi<User>()
 	.WithTags("Identity");
 

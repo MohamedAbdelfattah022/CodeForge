@@ -14,24 +14,27 @@ public class CreateSubmissionCommandHandler(
 	IMessageProducer messageProducer,
 	ISubmissionsRepository submissionsRepository,
 	ITestcasesRepository testcasesRepository,
+	ITempCodeFileService tempCodeFileService,
 	IUserContext userContext) : IRequestHandler<CreateSubmissionCommand, int> {
 	public async Task<int> Handle(CreateSubmissionCommand request, CancellationToken cancellationToken) {
 		logger.LogInformation("Creating submission for problem {ProblemId} with language {Language}", request.ProblemId, request.Language);
 
 		if (request.ProblemId <= 0) throw new ValidationException("ProblemId must be greater than 0.");
+		
 		var user = userContext.GetCurrentUser();
 		if(user is null) throw new UnauthorizedAccessException("User is not authenticated.");
 		
 		var submission = request.ToSubmission(user.Id);
-
 		var id = await submissionsRepository.CreateAsync(submission);
 
 		var tests = (await testcasesRepository.GetAllProblemTestcasesAsync(request.ProblemId))?.ToList() ??
 		            throw new NotFoundException("No testcases found for the specified problem.");
+		
+		var tempFilePath = await tempCodeFileService.SaveCodeToTempFileAsync(request.Code, request.Language);
 
 		var message = new SubmissionMessage(
 			Id: id,
-			Code: request.Code,
+			Code: tempFilePath,
 			Language: request.Language,
 			InputUrls: tests.Select(t => t.Input).ToList(),
 			OutputUrls: tests.Select(t => t.ExpectedOutput).ToList()

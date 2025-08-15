@@ -1,0 +1,67 @@
+using System.Text;
+using Codeforge.Domain.Constants;
+using Codeforge.Domain.Interfaces;
+using Microsoft.Extensions.Logging;
+
+namespace Codeforge.Application.Submissions.Services;
+
+public class TempCodeFileService(ILogger<TempCodeFileService> logger) : ITempCodeFileService {
+	private static readonly Dictionary<string, string> LanguageExtensions = new(StringComparer.OrdinalIgnoreCase)
+		{
+			[Language.Python] = ".py",
+			[Language.CSharp] = ".cs",
+			[Language.Cpp] = ".cpp"
+		};
+
+	public async Task<string> SaveCodeToTempFileAsync(string code, string language) {
+		var extension = GetFileExtension(language);
+		var fileName = $"{Guid.NewGuid()}{extension}";
+		var tempPath = Path.Combine(Path.GetTempPath(), fileName);
+
+		try {
+			await File.WriteAllTextAsync(tempPath, code, Encoding.UTF8);
+			logger.LogDebug("Saved code to temporary file: {FilePath}", tempPath);
+			return tempPath;
+		}
+		catch (Exception ex) {
+			logger.LogError(ex, "Failed to save code to temporary file: {FilePath}", tempPath);
+			throw;
+		}
+	}
+
+	public async Task<string> ReadCodeFromTempFileAsync(string filePath) {
+		var content = string.Empty;
+		try {
+			if (!File.Exists(filePath))
+				throw new FileNotFoundException($"Temporary file not found: {filePath}");
+
+			content = await File.ReadAllTextAsync(filePath, Encoding.UTF8);
+			logger.LogDebug("Read file content from temporary file: {FilePath}", filePath);
+		}
+		catch (Exception ex) {
+			logger.LogError(ex, "Failed to read content from temporary file: {FilePath}", filePath);
+		}
+
+		return content;
+	}
+
+	public Task DeleteTempFileAsync(string filePath) {
+		try {
+			if (File.Exists(filePath)) {
+				File.Delete(filePath);
+				logger.LogDebug("Deleted temporary file: {FilePath}", filePath);
+			}
+		}
+		catch (Exception ex) {
+			logger.LogWarning(ex, "Failed to delete temporary file: {FilePath}", filePath);
+		}
+
+		return Task.CompletedTask;
+	}
+
+	private static string GetFileExtension(string language) {
+		return LanguageExtensions.TryGetValue(language, out var extension)
+			? extension
+			: ".txt";
+	}
+}

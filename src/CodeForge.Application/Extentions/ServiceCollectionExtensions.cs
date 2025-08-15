@@ -1,5 +1,6 @@
 ﻿using Codeforge.Application.Submissions.Services;
 using Codeforge.Application.Users;
+using Codeforge.Domain.Interfaces;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
@@ -18,5 +19,7 @@ public static class ServiceCollectionExtensions {
 		services.AddScoped<IUserContext, UserContext>();
 		
 		services.AddHostedService<SubmissionConsumerService>();
+		
+		services.AddSingleton<ITempCodeFileService, TempCodeFileService>();
 	}
 }

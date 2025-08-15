@@ -4,13 +4,7 @@ import json
 import os
 import sys
 import tempfile
-import re
-
-def download(url, dest):
-    r = requests.get(url)
-    r.raise_for_status()
-    with open(dest, 'wb') as f:
-        f.write(r.content)
+import shutil
 
 def parse_output(output_str):
     time_ms = 0
@@ -27,10 +21,10 @@ def parse_output(output_str):
 
 def main():
     if len(sys.argv) != 5:
-        print("Usage: python judge.py <code_url> <language> <input_url> <output_url>", file=sys.stderr)
+        print("Usage: python judge.py <code_path> <language> <input_url> <output_url>", file=sys.stderr)
         sys.exit(1)
 
-    code_url = sys.argv[1]
+    code_path = sys.argv[1]
     lang = sys.argv[2].lower()
     input_url = sys.argv[3]
     output_url = sys.argv[4]
@@ -39,17 +33,22 @@ def main():
         print("Unsupported language", file=sys.stderr)
         sys.exit(1)
 
+    if not os.path.exists(code_path):
+        print("Code file not found", file=sys.stderr)
+        sys.exit(1)
+
     time_limit_ms = 2000
     memory_limit_kb = 256 * 1024  # 256 MB
     memory_limit_str = f"{memory_limit_kb // 1024}m"  # in MB for docker
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        code_path = os.path.join(tmpdir, 'code')
+        temp_code_path = os.path.join(tmpdir, 'code')
         input_path = os.path.join(tmpdir, 'input.txt')
         expected_path = os.path.join(tmpdir, 'expected.txt')
         user_out_path = os.path.join(tmpdir, 'user_out.txt')
 
-        download(code_url, code_path)
+        shutil.copy(code_path, temp_code_path)
+
         download(input_url, input_path)
         download(output_url, expected_path)
 
@@ -61,7 +60,7 @@ def main():
         elif lang == 'python':
             ext = 'py'
             image = 'python:3.12'
-            compile_cmd = 'true'  # no-op
+            compile_cmd = 'true'
             run_cmd = 'python /workspace/user.py'
         elif lang == 'c#':
             ext = 'cs'
@@ -70,7 +69,7 @@ def main():
             run_cmd = 'dotnet run --project /workspace/app --no-build'
 
         src_path = os.path.join(tmpdir, f'user.{ext}')
-        os.rename(code_path, src_path)
+        os.rename(temp_code_path, src_path)
 
         bash_cmd = (
             f'{compile_cmd} ; '
@@ -127,7 +126,7 @@ def main():
         except subprocess.TimeoutExpired:
             verdict = "TimeLimitExceeded"
         except Exception as e:
-            verdict = "RuntimeError"  # or handle differently
+            verdict = "RuntimeError"
 
         result = {
             "overall_verdict": verdict,
@@ -136,6 +135,12 @@ def main():
         }
 
         print(json.dumps(result))
+
+def download(url, dest):
+    r = requests.get(url)
+    r.raise_for_status()
+    with open(dest, 'wb') as f:
+        f.write(r.content)
 
 if __name__ == "__main__":
     main()
