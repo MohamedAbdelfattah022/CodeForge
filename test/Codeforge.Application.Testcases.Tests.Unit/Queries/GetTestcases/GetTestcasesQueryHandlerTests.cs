@@ -1,9 +1,12 @@
 using Codeforge.Application.Testcases.Queries.GetTestcases;
 using Codeforge.Domain.Entities;
 using Codeforge.Domain.Exceptions;
+using Codeforge.Domain.Interfaces;
+using Codeforge.Domain.Options;
 using Codeforge.Domain.Repositories;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Codeforge.Application.Testcases.Tests.Unit.Queries.GetTestcases;
 
@@ -12,12 +15,19 @@ public class GetTestcasesQueryHandlerTests {
 	private readonly GetTestcasesQueryHandler _handler;
 	private readonly ILogger<GetTestcasesQueryHandler> _logger = Substitute.For<ILogger<GetTestcasesQueryHandler>>();
 	private readonly ITestcasesRepository _testcasesRepository = Substitute.For<ITestcasesRepository>();
+	private readonly ISupabaseService _supabaseService = Substitute.For<ISupabaseService>();
+	private readonly IOptions<SupabaseOptions> _supabaseOptions = Substitute.For<IOptions<SupabaseOptions>>();
 
 	public GetTestcasesQueryHandlerTests() {
-		_handler = new GetTestcasesQueryHandler(_logger, _testcasesRepository);
+		_handler = new GetTestcasesQueryHandler(_logger, _testcasesRepository, _supabaseService, _supabaseOptions);
 		_fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
 			.ForEach(b => _fixture.Behaviors.Remove(b));
 		_fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
+		var supabaseOptionsValue = _fixture.Build<SupabaseOptions>()
+			.With(x => x.Bucket, "test-bucket")
+			.Create();
+		_supabaseOptions.Value.Returns(supabaseOptionsValue);
 	}
 
 	[Fact]
@@ -28,6 +38,11 @@ public class GetTestcasesQueryHandlerTests {
 		var testcases = _fixture.CreateMany<TestCase>(3).ToList();
 
 		_testcasesRepository.GetProblemTestcasesAsync(problemId).Returns(testcases);
+
+		foreach (var testcase in testcases) {
+			_supabaseService.ReadFileAsync("test-bucket", testcase.Input).Returns(Task.FromResult(testcase.Input));
+			_supabaseService.ReadFileAsync("test-bucket", testcase.ExpectedOutput).Returns(Task.FromResult(testcase.ExpectedOutput));
+		}
 
 		// Act
 		var result = (await _handler.Handle(query, CancellationToken.None)).ToList();

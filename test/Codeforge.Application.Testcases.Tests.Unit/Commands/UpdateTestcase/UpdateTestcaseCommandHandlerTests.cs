@@ -1,9 +1,12 @@
 using Codeforge.Application.Testcases.Commands.UpdateTestcase;
 using Codeforge.Domain.Entities;
 using Codeforge.Domain.Exceptions;
+using Codeforge.Domain.Interfaces;
+using Codeforge.Domain.Options;
 using Codeforge.Domain.Repositories;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Codeforge.Application.Testcases.Tests.Unit.Commands.UpdateTestcase;
 
@@ -12,12 +15,20 @@ public class UpdateTestcaseCommandHandlerTests {
 	private readonly UpdateTestcaseCommandHandler _handler;
 	private readonly ILogger<UpdateTestcaseCommandHandler> _logger = Substitute.For<ILogger<UpdateTestcaseCommandHandler>>();
 	private readonly ITestcasesRepository _testcasesRepository = Substitute.For<ITestcasesRepository>();
+	private readonly ITempCodeFileService _fileService = Substitute.For<ITempCodeFileService>();
+	private readonly ISupabaseService _supabaseService = Substitute.For<ISupabaseService>();
+	private readonly IOptions<SupabaseOptions> _supabaseOptions = Substitute.For<IOptions<SupabaseOptions>>();
 
 	public UpdateTestcaseCommandHandlerTests() {
-		_handler = new UpdateTestcaseCommandHandler(_logger, _testcasesRepository);
+		_handler = new UpdateTestcaseCommandHandler(_logger, _testcasesRepository, _supabaseService, _fileService, _supabaseOptions);
 		_fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
 			.ForEach(b => _fixture.Behaviors.Remove(b));
 		_fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
+		var supabaseOptionsValue = _fixture.Build<SupabaseOptions>()
+			.With(x => x.Bucket, "test-bucket")
+			.Create();
+		_supabaseOptions.Value.Returns(supabaseOptionsValue);
 	}
 
 	[Fact]
@@ -27,6 +38,9 @@ public class UpdateTestcaseCommandHandlerTests {
 		var existingTestcase = _fixture.Create<TestCase>();
 
 		_testcasesRepository.GetByIdAsync(command.TestcaseId).Returns(existingTestcase);
+		_fileService.CreateFileWithNameAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(Task.FromResult("temp-file-path"));
+		_supabaseService.UploadOrUpdateFileAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(Task.CompletedTask);
+		_fileService.DeleteTempFile(Arg.Any<string>());
 
 		// Act
 		await _handler.Handle(command, CancellationToken.None);
@@ -35,8 +49,8 @@ public class UpdateTestcaseCommandHandlerTests {
 		await _testcasesRepository.Received(1).GetByIdAsync(command.TestcaseId);
 		await _testcasesRepository.Received(1).UpdateAsync(Arg.Is<TestCase>(tc =>
 			tc.Id == existingTestcase.Id &&
-			tc.Input == (command.Input ?? existingTestcase.Input) &&
-			tc.ExpectedOutput == (command.ExpectedOutput ?? existingTestcase.ExpectedOutput) &&
+			tc.Input == existingTestcase.Input &&
+			tc.ExpectedOutput == existingTestcase.ExpectedOutput &&
 			tc.IsVisible == (command.IsVisible ?? existingTestcase.IsVisible)));
 	}
 
@@ -60,14 +74,21 @@ public class UpdateTestcaseCommandHandlerTests {
 			};
 
 		_testcasesRepository.GetByIdAsync(command.TestcaseId).Returns(existingTestcase);
+		_fileService.CreateFileWithNameAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(Task.FromResult("temp-file-path"));
+		_supabaseService.UploadOrUpdateFileAsync(Arg.Any<string>(), Arg.Any<string>()).Returns(Task.CompletedTask);
+		_fileService.DeleteTempFile(Arg.Any<string>());
 
 		// Act
 		await _handler.Handle(command, CancellationToken.None);
 
 		// Assert
+		await _supabaseService.Received(1).UploadOrUpdateFileAsync(
+			Arg.Any<string>(),
+			Arg.Any<string>());
+		await _fileService.Received(1).CreateFileWithNameAsync(
+			Arg.Any<string>(),
+			Arg.Any<string>());
 		await _testcasesRepository.Received(1).UpdateAsync(Arg.Is<TestCase>(tc =>
-			tc.Input == "new input" &&
-			tc.ExpectedOutput == "old output" &&
 			tc.IsVisible == false));
 	}
 

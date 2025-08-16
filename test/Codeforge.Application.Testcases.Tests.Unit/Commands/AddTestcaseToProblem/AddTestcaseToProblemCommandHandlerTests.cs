@@ -1,9 +1,12 @@
 using Codeforge.Application.Testcases.Commands.AddTestcaseToProblem;
 using Codeforge.Domain.Entities;
 using Codeforge.Domain.Exceptions;
+using Codeforge.Domain.Interfaces;
+using Codeforge.Domain.Options;
 using Codeforge.Domain.Repositories;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Codeforge.Application.Testcases.Tests.Unit.Commands.AddTestcaseToProblem;
 
@@ -13,9 +16,18 @@ public class AddTestcaseToProblemCommandHandlerTests {
 	private readonly ILogger<AddTestcaseToProblemCommandHandler> _logger = Substitute.For<ILogger<AddTestcaseToProblemCommandHandler>>();
 	private readonly IProblemsRepository _problemsRepository = Substitute.For<IProblemsRepository>();
 	private readonly ITestcasesRepository _testcasesRepository = Substitute.For<ITestcasesRepository>();
+	private readonly ITempCodeFileService _fileService = Substitute.For<ITempCodeFileService>();
+	private readonly ISupabaseService _supabaseService = Substitute.For<ISupabaseService>();
+	private readonly IOptions<SupabaseOptions> _supabaseOptions = Substitute.For<IOptions<SupabaseOptions>>();
 
 	public AddTestcaseToProblemCommandHandlerTests() {
-		_handler = new AddTestcaseToProblemCommandHandler(_logger, _testcasesRepository, _problemsRepository);
+		_handler = new AddTestcaseToProblemCommandHandler(_logger, _testcasesRepository, _problemsRepository, _fileService, _supabaseService,
+			_supabaseOptions);
+
+		var supabaseOptionsValue = _fixture.Build<SupabaseOptions>()
+			.With(x => x.Bucket, "test-bucket")
+			.Create();
+		_supabaseOptions.Value.Returns(supabaseOptionsValue);
 	}
 
 	[Fact]
@@ -27,6 +39,12 @@ public class AddTestcaseToProblemCommandHandlerTests {
 		_problemsRepository.ExistsAsync(command.ProblemId).Returns(true);
 		_testcasesRepository.CreateAsync(Arg.Any<TestCase>()).Returns(expectedTestcaseId);
 
+		_fileService.SaveCodeToTempFileAsync(command.Input, "txt").Returns(Task.FromResult("temp/input.txt"));
+		_fileService.SaveCodeToTempFileAsync(command.ExpectedOutput, "txt").Returns(Task.FromResult("temp/expectedOutput.txt"));
+
+		_supabaseService.UploadOrUpdateFileAsync("test-bucket", "temp/input.txt").Returns(Task.CompletedTask);
+		_supabaseService.UploadOrUpdateFileAsync("test-bucket", "temp/expectedOutput.txt").Returns(Task.CompletedTask);
+		
 		// Act
 		var id = await _handler.Handle(command, CancellationToken.None);
 
