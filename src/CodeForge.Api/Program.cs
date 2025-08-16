@@ -1,7 +1,6 @@
 using Codeforge.Api.Extensions;
 using Codeforge.Api.Middlewares;
 using Codeforge.Application.Extentions;
-using Codeforge.Application.Submissions.Services;
 using Codeforge.Domain.Entities;
 using Codeforge.Infrastructure.Extensions;
 using Scalar.AspNetCore;

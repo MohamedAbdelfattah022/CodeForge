@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Supabase;
+using SupabaseOptions = Codeforge.Domain.Options.SupabaseOptions;
 
 namespace Codeforge.Infrastructure.Extensions;
 
@@ -38,8 +40,8 @@ public static class ServiceCollectionExtension {
 		                      throw new ArgumentNullException(nameof(configuration));
 
 		services.AddSingleton<ISupabaseService, SupabaseService>();
-		services.AddSingleton<Supabase.Client>(_ =>
-			new Supabase.Client(
+		services.AddSingleton<Client>(_ =>
+			new Client(
 				supabaseOptions.Url,
 				supabaseOptions.ApiKey,
 				new Supabase.SupabaseOptions

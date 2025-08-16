@@ -22,14 +22,14 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.4"/>
-        <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
-        <PackageReference Include="Supabase" Version="1.1.1" />
-    
+        <PackageReference Include="RabbitMQ.Client" Version="7.1.2"/>
+        <PackageReference Include="Supabase" Version="1.1.1"/>
+
     </ItemGroup>
 
 
     <ItemGroup>
-      <Compile Remove="Services\SupabaseStorageService.cs" />
+        <Compile Remove="Services\SupabaseStorageService.cs"/>
     </ItemGroup>
 
 </Project>

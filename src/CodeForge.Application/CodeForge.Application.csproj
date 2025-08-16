@@ -22,7 +22,7 @@
 
 
     <ItemGroup>
-      <Folder Include="Submissions\Queries\GetSubmissionStatus\" />
+        <Folder Include="Submissions\Queries\GetSubmissionStatus\"/>
     </ItemGroup>
 
 </Project>

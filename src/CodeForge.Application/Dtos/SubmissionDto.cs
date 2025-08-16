@@ -1,6 +1,4 @@
-﻿using Codeforge.Domain.Constants;
-
-namespace Codeforge.Application.Dtos;
+﻿namespace Codeforge.Application.Dtos;
 
 public class SubmissionDto {
 	public int Id { get; set; }

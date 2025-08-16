@@ -1,18 +1,17 @@
 ﻿using System.Text;
 using Codeforge.Domain.Interfaces;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Supabase;
-using Supabase.Storage;
-using Supabase.Storage.Interfaces;
 using FileOptions = Supabase.Storage.FileOptions;
 
 namespace Codeforge.Infrastructure.Services;
 
-public class SupabaseService(Supabase.Client supabase) : ISupabaseService {
+public class SupabaseService(Client supabase) : ISupabaseService {
 	public async Task<string> ReadFileAsync(string bucketName, string remotePath) {
 		var res = await supabase.Storage.From(bucketName).Download(remotePath, null);
-		var content = Encoding.UTF8.GetString(res);
+		using var stream = new MemoryStream(res);
+		using var reader = new StreamReader(stream, Encoding.UTF8, true);
+		var content = await reader.ReadToEndAsync();
+
 		return content;
 	}
 

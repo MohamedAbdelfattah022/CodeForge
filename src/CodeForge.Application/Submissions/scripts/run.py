@@ -1,10 +1,12 @@
-import requests
-import subprocess
 import json
 import os
+import shutil
+import subprocess
 import sys
 import tempfile
-import shutil
+
+import requests
+
 
 def parse_output(output_str):
     time_ms = 0
@@ -18,6 +20,7 @@ def parse_output(output_str):
         elif line.startswith("EXIT:"):
             exit_code = int(line.split(":")[1])
     return time_ms, mem_kb, exit_code
+
 
 def main():
     if len(sys.argv) != 5:
@@ -136,11 +139,13 @@ def main():
 
         print(json.dumps(result))
 
+
 def download(url, dest):
     r = requests.get(url)
     r.raise_for_status()
     with open(dest, 'wb') as f:
         f.write(r.content)
+
 
 if __name__ == "__main__":
     main()

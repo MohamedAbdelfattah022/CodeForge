@@ -21,12 +21,12 @@ public class GetSubmissionStatusQueryHandler(
 
 		if (submission is null) throw new NotFoundException(nameof(Submission), request.SubmissionId.ToString());
 
-		return new SubmissionStatusDto {
-			SubmissionId = submission.Id,
-			OverallVerdict = submission.Verdict.ToString(),
-			ExecutionTimeMs = submission.ExecutionTime ?? 0,
-			UsedMemoryKb = submission.MemoryUsed ?? 0
-		};
+		return new SubmissionStatusDto
+			{
+				SubmissionId = submission.Id,
+				OverallVerdict = submission.Verdict.ToString(),
+				ExecutionTimeMs = submission.ExecutionTime ?? 0,
+				UsedMemoryKb = submission.MemoryUsed ?? 0
+			};
 	}
 }
-

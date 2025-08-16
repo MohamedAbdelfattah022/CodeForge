@@ -22,18 +22,18 @@ public class MessageProducer(IOptions<RabbitMqOptions> rabbitMqOptions) : IMessa
 		await using var channel = await connection.CreateChannelAsync();
 
 		await channel.QueueDeclareAsync(
-			queue: _rabbitMqOptions.QueueName,
-			durable: true,
-			exclusive: false,
-			autoDelete: false,
-			arguments: null);
+			_rabbitMqOptions.QueueName,
+			true,
+			false,
+			false,
+			null);
 
 		var jsonString = JsonSerializer.Serialize(message);
 		var body = Encoding.UTF8.GetBytes(jsonString);
 
 		await channel.BasicPublishAsync(
-			exchange: string.Empty,
-			routingKey: _rabbitMqOptions.QueueName,
+			string.Empty,
+			_rabbitMqOptions.QueueName,
 			basicProperties: new BasicProperties { Persistent = true },
 			mandatory: true,
 			body: body

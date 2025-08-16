@@ -12,8 +12,13 @@ namespace Codeforge.Infrastructure.Messaging;
 public sealed class MessageConsumer(
 	IOptions<RabbitMqOptions> rabbitMqOptions,
 	ILogger<MessageConsumer> logger) : IMessageConsumer, IAsyncDisposable {
-	private IConnection? _connection;
 	private IChannel? _channel;
+	private IConnection? _connection;
+
+	public async ValueTask DisposeAsync() {
+		if (_channel != null) await _channel.CloseAsync();
+		if (_connection != null) await _connection.CloseAsync();
+	}
 
 	public async Task ConsumeAsync<TMessage>(string queueName, Func<TMessage, Task> messageHandler, CancellationToken cancellationToken = default) {
 		var factory = new ConnectionFactory
@@ -27,7 +32,7 @@ public sealed class MessageConsumer(
 		_connection = await factory.CreateConnectionAsync(cancellationToken);
 		_channel = await _connection.CreateChannelAsync(cancellationToken: cancellationToken);
 
-		await _channel.QueueDeclareAsync(queue: queueName, durable: true, exclusive: false, autoDelete: false, cancellationToken: cancellationToken);
+		await _channel.QueueDeclareAsync(queueName, true, false, false, cancellationToken: cancellationToken);
 
 		var consumer = new AsyncEventingBasicConsumer(_channel);
 		consumer.ReceivedAsync += async (sender, args) => {
@@ -49,14 +54,9 @@ public sealed class MessageConsumer(
 			}
 		};
 
-		await _channel.BasicQosAsync(0, prefetchCount: 1, global: false, cancellationToken);
-		await _channel.BasicConsumeAsync(queue: queueName, autoAck: false, consumer: consumer, cancellationToken: cancellationToken);
+		await _channel.BasicQosAsync(0, 1, false, cancellationToken);
+		await _channel.BasicConsumeAsync(queueName, false, consumer, cancellationToken);
 
 		logger.LogInformation("Started consuming from queue {Queue}", queueName);
-	}
-
-	public async ValueTask DisposeAsync() {
-		if (_channel != null) await _channel.CloseAsync();
-		if (_connection != null) await _connection.CloseAsync();
 	}
 }

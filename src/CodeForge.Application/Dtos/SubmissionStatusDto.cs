@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Codeforge.Application.Dtos;
 
 public class SubmissionStatusDto {

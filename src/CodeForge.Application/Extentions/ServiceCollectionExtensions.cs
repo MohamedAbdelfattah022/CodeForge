@@ -17,9 +17,9 @@ public static class ServiceCollectionExtensions {
 			.AddFluentValidationAutoValidation(cfg => cfg.EnablePathBindingSourceAutomaticValidation = true);
 
 		services.AddScoped<IUserContext, UserContext>();
-		
+
 		services.AddHostedService<SubmissionConsumerService>();
-		
+
 		services.AddSingleton<ITempCodeFileService, TempCodeFileService>();
 	}
 }

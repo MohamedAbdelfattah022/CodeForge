@@ -15,11 +15,11 @@ namespace Codeforge.Application.Submissions.Services;
 
 public class SubmissionConsumerService : BackgroundService {
 	private readonly ILogger<SubmissionConsumerService> _logger;
-	private readonly RabbitMqOptions _rabbitMqOptions;
 	private readonly IMessageConsumer _messageConsumer;
-	private readonly ITempCodeFileService _tempCodeFileService;
-	private readonly IServiceScopeFactory _scopeFactory;
 	private readonly string _pythonScriptPath;
+	private readonly RabbitMqOptions _rabbitMqOptions;
+	private readonly IServiceScopeFactory _scopeFactory;
+	private readonly ITempCodeFileService _tempCodeFileService;
 
 	public SubmissionConsumerService(
 		ILogger<SubmissionConsumerService> logger,
@@ -41,9 +41,9 @@ public class SubmissionConsumerService : BackgroundService {
 
 	protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
 		await _messageConsumer.ConsumeAsync<SubmissionMessage>(
-			queueName: _rabbitMqOptions.QueueName,
-			messageHandler: RunJudgeAsync,
-			cancellationToken: stoppingToken);
+			_rabbitMqOptions.QueueName,
+			RunJudgeAsync,
+			stoppingToken);
 	}
 
 	private async Task RunJudgeAsync(SubmissionMessage message) {

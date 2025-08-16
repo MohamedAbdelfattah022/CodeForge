@@ -1,10 +1,7 @@
 ﻿using Codeforge.Application.Dtos;
 using Codeforge.Application.Mappings;
-using Codeforge.Application.Users;
-using Codeforge.Domain.Entities;
 using Codeforge.Domain.Repositories;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace Codeforge.Application.Submissions.Queries.GetUserSubmissions;
