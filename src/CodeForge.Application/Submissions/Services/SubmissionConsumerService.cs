@@ -61,7 +61,7 @@ public class SubmissionConsumerService : BackgroundService {
 			}
 		}
 		finally {
-			await _tempCodeFileService.DeleteTempFileAsync(message.Code);
+			_tempCodeFileService.DeleteTempFile(message.Code);
 		}
 
 		await SaveSubmissionResultAsync(message.Id, judgeResults);

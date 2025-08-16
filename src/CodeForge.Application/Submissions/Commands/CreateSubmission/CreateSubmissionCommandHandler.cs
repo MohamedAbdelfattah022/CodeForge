@@ -1,5 +1,6 @@
 ﻿using Codeforge.Application.Submissions.Messages;
 using Codeforge.Application.Users;
+using Codeforge.Domain.Entities;
 using Codeforge.Domain.Exceptions;
 using Codeforge.Domain.Interfaces;
 using Codeforge.Domain.Repositories;
@@ -28,7 +29,7 @@ public class CreateSubmissionCommandHandler(
 		var id = await submissionsRepository.CreateAsync(submission);
 
 		var tests = (await testcasesRepository.GetAllProblemTestcasesAsync(request.ProblemId))?.ToList() ??
-		            throw new NotFoundException("No testcases found for the specified problem.");
+		            throw new NotFoundException(nameof(TestCase));
 		
 		var tempFilePath = await tempCodeFileService.SaveCodeToTempFileAsync(request.Code, request.Language);
 

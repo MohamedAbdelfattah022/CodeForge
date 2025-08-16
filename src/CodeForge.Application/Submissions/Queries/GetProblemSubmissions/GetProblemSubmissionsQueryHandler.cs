@@ -18,9 +18,9 @@ public class GetProblemSubmissionsQueryHandler(
 		var isProblemExists = await problemsRepository.ExistsAsync(request.ProblemId);
 		if (!isProblemExists) throw new NotFoundException(nameof(Problem), request.ProblemId.ToString());
 
-		var submissions = await submissionsRepository.GetAllSubmissons(request.ProblemId);
+		var submissions = await submissionsRepository.GetAllSubmissions(request.ProblemId);
 
-		var metadata = submissions.Select(s => s.ToMetadata()).ToList() ?? [];
+		var metadata = submissions.Select(s => s.ToMetadata()).ToList();
 
 		return metadata;
 	}

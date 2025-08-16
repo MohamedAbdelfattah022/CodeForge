@@ -17,7 +17,7 @@ public class GetUserSubmissionsQueryHandler(
 
 		var submissions = await submissionsRepository.GetUserSubmissionsAsync(request.UserId);
 
-		var results = submissions.Select(s => s.ToMetadata()).ToList() ?? [];
+		var results = submissions.Select(s => s.ToMetadata()).ToList();
 		return results;
 	}
 }

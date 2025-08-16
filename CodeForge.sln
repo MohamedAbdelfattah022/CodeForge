@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codeforge.Application.Testc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codeforge.Application.Tags.Tests.Unit", "test\Codeforge.Application.Tags.Tests.Unit\Codeforge.Application.Tags.Tests.Unit.csproj", "{07CD3F1A-6EA1-400B-B4E0-31CEC9E401C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codeforge.Application.Submissions.Tests.Unit", "test\Codeforge.Application.Submissions.Tests.Unit\Codeforge.Application.Submissions.Tests.Unit.csproj", "{B73E8E06-4332-4620-A2ED-AF1A72E15664}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,7 @@ Global
 		{4496479C-C910-4D97-BB84-5C4342226B68} = {E3815878-18F3-49DF-9177-DC4B5721E358}
 		{941B45C6-D6EE-4C9B-9A18-9D71DB2F4376} = {E3815878-18F3-49DF-9177-DC4B5721E358}
 		{07CD3F1A-6EA1-400B-B4E0-31CEC9E401C0} = {E3815878-18F3-49DF-9177-DC4B5721E358}
+		{B73E8E06-4332-4620-A2ED-AF1A72E15664} = {E3815878-18F3-49DF-9177-DC4B5721E358}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{250E79C7-C72D-476B-944D-EB86E8720EB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -61,5 +64,9 @@ Global
 		{07CD3F1A-6EA1-400B-B4E0-31CEC9E401C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07CD3F1A-6EA1-400B-B4E0-31CEC9E401C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07CD3F1A-6EA1-400B-B4E0-31CEC9E401C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B73E8E06-4332-4620-A2ED-AF1A72E15664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B73E8E06-4332-4620-A2ED-AF1A72E15664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B73E8E06-4332-4620-A2ED-AF1A72E15664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B73E8E06-4332-4620-A2ED-AF1A72E15664}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

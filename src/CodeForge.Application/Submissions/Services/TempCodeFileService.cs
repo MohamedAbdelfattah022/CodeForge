@@ -45,18 +45,10 @@ public class TempCodeFileService(ILogger<TempCodeFileService> logger) : ITempCod
 		return content;
 	}
 
-	public Task DeleteTempFileAsync(string filePath) {
-		try {
-			if (File.Exists(filePath)) {
-				File.Delete(filePath);
-				logger.LogDebug("Deleted temporary file: {FilePath}", filePath);
-			}
-		}
-		catch (Exception ex) {
-			logger.LogWarning(ex, "Failed to delete temporary file: {FilePath}", filePath);
-		}
-
-		return Task.CompletedTask;
+	public void DeleteTempFile(string filePath) {
+		if (!File.Exists(filePath)) return;
+		File.Delete(filePath);
+		logger.LogDebug("Deleted temporary file: {FilePath}", filePath);
 	}
 
 	private static string GetFileExtension(string language) {

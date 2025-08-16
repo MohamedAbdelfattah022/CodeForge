@@ -8,7 +8,7 @@ namespace Codeforge.Infrastructure.Repositories;
 public class SubmissionsRepository(CodeforgeDbContext dbContext) : BaseRepository<Submission>(dbContext), ISubmissionsRepository {
 	private readonly DbSet<Submission> _dbSet = dbContext.Set<Submission>();
 
-	public async Task<List<Submission>> GetAllSubmissons(int problemId) {
+	public async Task<List<Submission>> GetAllSubmissions(int problemId) {
 		var data = await _dbSet
 			.AsNoTracking()
 			.Where(s => s.ProblemId == problemId)
