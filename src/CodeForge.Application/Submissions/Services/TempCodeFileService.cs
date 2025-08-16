@@ -29,6 +29,20 @@ public class TempCodeFileService(ILogger<TempCodeFileService> logger) : ITempCod
 		}
 	}
 
+	public Task<string> CreateFileWithNameAsync(string fileName, string content) {
+		var tempPath = Path.Combine(Path.GetTempPath(), fileName);
+
+		try {
+			File.WriteAllText(tempPath, content, Encoding.UTF8);
+			logger.LogDebug("Created file with name: {FilePath}", tempPath);
+			return Task.FromResult(tempPath);
+		}
+		catch (Exception ex) {
+			logger.LogError(ex, "Failed to create file with name: {FilePath}", tempPath);
+			throw;
+		}
+	}
+
 	public async Task<string> ReadCodeFromTempFileAsync(string filePath) {
 		var content = string.Empty;
 		try {
