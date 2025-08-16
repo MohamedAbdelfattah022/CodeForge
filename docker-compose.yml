@@ -1,3 +1,4 @@
+version: "3.9"
 services:
   rabbit-server:
     image: rabbitmq:4-management
@@ -6,3 +7,21 @@ services:
     ports:
       - "5672:5672"
       - "8080:15672"
+
+  cpp-env:
+    image: gcc:13
+    container_name: cpp-env
+    stdin_open: true
+    tty: true
+
+  python-env:
+    image: python:3.12
+    container_name: python-env
+    stdin_open: true
+    tty: true
+
+  csharp-env:
+    image: mcr.microsoft.com/dotnet/sdk:9.0
+    container_name: csharp-env
+    stdin_open: true
+    tty: true

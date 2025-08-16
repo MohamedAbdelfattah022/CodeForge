@@ -42,7 +42,6 @@ def main():
 
     time_limit_ms = 2000
     memory_limit_kb = 256 * 1024  # 256 MB
-    memory_limit_str = f"{memory_limit_kb // 1024}m"  # in MB for docker
 
     with tempfile.TemporaryDirectory() as tmpdir:
         temp_code_path = os.path.join(tmpdir, 'code')
@@ -57,17 +56,17 @@ def main():
 
         if lang == 'cpp':
             ext = 'cpp'
-            image = 'gcc:13'
+            container = 'cpp-env'
             compile_cmd = 'g++ /workspace/user.cpp -o /workspace/user -fsanitize=address -fsanitize=undefined 2> /workspace/compile_err.txt'
             run_cmd = './user'
         elif lang == 'python':
             ext = 'py'
-            image = 'python:3.12'
+            container = 'python-env'
             compile_cmd = 'true'
             run_cmd = 'python /workspace/user.py'
         elif lang == 'c#':
             ext = 'cs'
-            image = 'mcr.microsoft.com/dotnet/sdk:9.0'
+            container = 'csharp-env'
             compile_cmd = 'dotnet new console -o /workspace/app --force && cp /workspace/user.cs /workspace/app/Program.cs && dotnet build /workspace/app 2> /workspace/compile_err.txt'
             run_cmd = 'dotnet run --project /workspace/app --no-build'
 
@@ -82,19 +81,16 @@ def main():
             f'( {run_cmd} < /workspace/input.txt > /workspace/user_out.txt 2> /workspace/runtime_err.txt ) ; '
             f'exitcode=$? ; '
             f'end=$(date +%s%N) ; '
-            f'mem=$(cat /sys/fs/cgroup/memory.peak) ; '
+            f'mem=$(cat /sys/fs/cgroup/memory.peak 2>/dev/null || echo 0) ; '
             f'echo "TIME:$(( (end - start) / 1000000 ))" ; '
             f'echo "MEM:$(( mem / 1024 ))" ; '
             f'echo "EXIT:$exitcode"'
         )
 
         docker_cmd = [
-            'docker', 'run', '--rm',
-            '-v', f'{tmpdir}:/workspace',
+            'docker', 'exec',
             '-w', '/workspace',
-            '--memory', memory_limit_str,
-            '--memory-swap', memory_limit_str,
-            image, 'bash', '-c', bash_cmd
+            container, 'bash', '-c', bash_cmd
         ]
 
         verdict = "Pending"
@@ -102,6 +98,9 @@ def main():
         used_mem = 0
 
         try:
+            # Copy files into container before exec
+            subprocess.run(['docker', 'cp', f'{tmpdir}/.', f'{container}:/workspace'], check=True)
+
             p = subprocess.run(docker_cmd, capture_output=True, timeout=5)
             output = p.stdout.decode('utf-8', errors='ignore')
 
@@ -114,6 +113,9 @@ def main():
                 if exit_code != 0:
                     verdict = "RuntimeError"
                 else:
+                    # Copy back user output
+                    subprocess.run(['docker', 'cp', f'{container}:/workspace/user_out.txt', user_out_path], check=True)
+
                     with open(user_out_path, 'r', encoding='utf-8', errors='ignore') as f:
                         user_output = f.read().rstrip()
                     with open(expected_path, 'r', encoding='utf-8', errors='ignore') as f:
@@ -128,7 +130,7 @@ def main():
 
         except subprocess.TimeoutExpired:
             verdict = "TimeLimitExceeded"
-        except Exception as e:
+        except Exception:
             verdict = "RuntimeError"
 
         result = {
