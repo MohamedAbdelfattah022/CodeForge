@@ -12,6 +12,8 @@ public sealed class Submission : BaseEntity {
 	public Verdict Verdict { get; set; } = Verdict.Pending;
 	public int? ExecutionTime { get; set; }
 	public int? MemoryUsed { get; set; }
+	public int? ContestId { get; set; }
+	public Contest? Contest { get; set; }
 	[JsonIgnore] public Problem Problem { get; set; }
 	public User User { get; set; }
 }

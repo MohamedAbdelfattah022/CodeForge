@@ -11,4 +11,7 @@ public sealed class Problem : BaseEntity {
 	public ICollection<TestCase> TestCases { get; set; } = new List<TestCase>();
 	public ICollection<Submission> Submissions { get; set; } = new List<Submission>();
 	public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+	
+	public int? ContestId { get; set; }
+	public Contest? Contest { get; set; }
 }
