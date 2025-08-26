@@ -19,7 +19,11 @@ public static class ServiceCollectionExtension {
 	public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration) {
 		var connectionString = configuration.GetConnectionString("DefaultConnection");
 		services.AddDbContext<CodeforgeDbContext>(options => options.UseSqlServer(connectionString));
-
+		services.AddStackExchangeRedisCache(options => {
+			options.Configuration = configuration.GetSection("Redis:ConnectionString").Value;
+			options.InstanceName = configuration.GetSection("Redis:InstanceName").Value;
+		});
+		
 		services.AddIdentityApiEndpoints<User>()
 			.AddRoles<IdentityRole>()
 			.AddEntityFrameworkStores<CodeforgeDbContext>();
@@ -35,6 +39,7 @@ public static class ServiceCollectionExtension {
 
 		services.AddScoped<IMessageProducer, MessageProducer>();
 		services.AddSingleton<IMessageConsumer, MessageConsumer>();
+		services.AddSingleton<IRedisCacheService, RedisCacheService>();
 
 		var supabaseOptions = configuration.GetSection(SupabaseOptions.SectionName).Get<SupabaseOptions>() ??
 		                      throw new ArgumentNullException(nameof(configuration));
