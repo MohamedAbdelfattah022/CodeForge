@@ -12,7 +12,21 @@ public static class ContestsMapping {
 				Description = contest.Description,
 				StartTime = contest.StartTime,
 				EndTime = contest.EndTime,
-				Status = contest.Status
+				Status = contest.Status,
+				Problems = contest.Problems?.Select(p => p.ToProblemForContestDto()).ToList() ?? [],
+				Participants = contest.Participants?.Select(u => u.ToUserForContestDto()).ToList() ?? []
+			};
+	}
+
+	public static Contest ToEntity(this ContestDto dto) {
+		return new Contest
+			{
+				Id = dto.Id,
+				Name = dto.Name,
+				Description = dto.Description,
+				StartTime = dto.StartTime,
+				EndTime = dto.EndTime,
+				Status = dto.Status
 			};
 	}
 }

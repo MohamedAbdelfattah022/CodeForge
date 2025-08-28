@@ -9,4 +9,6 @@ public class ContestDto {
 	public DateTime StartTime { get; set; }
 	public DateTime EndTime { get; set; }
 	public ContestStatus Status { get; set; }
+	public List<ProblemForContestDto>? Problems { get; set; } = [];
+	public List<UserForContestDto>? Participants { get; set; } = [];
 }

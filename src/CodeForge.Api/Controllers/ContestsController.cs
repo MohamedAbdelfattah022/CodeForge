@@ -1,9 +1,11 @@
-using Codeforge.Application.Dtos;
 using Codeforge.Application.Contests.Commands.CreateContest;
 using Codeforge.Application.Contests.Commands.DeleteContest;
+using Codeforge.Application.Contests.Commands.RegisterToContest;
+using Codeforge.Application.Contests.Commands.UnregisterFromContest;
 using Codeforge.Application.Contests.Commands.UpdateContest;
 using Codeforge.Application.Contests.Queries.GetAllContests;
 using Codeforge.Application.Contests.Queries.GetContestById;
+using Codeforge.Application.Dtos;
 using Codeforge.Application.Shared;
 using Codeforge.Domain.Constants;
 using MediatR;
@@ -46,6 +48,20 @@ public class ContestsController(IMediator mediator) : ControllerBase {
 	[Authorize(Roles = UserRoles.Admin)]
 	public async Task<IActionResult> DeleteContest(int contestId) {
 		await mediator.Send(new DeleteContestCommand(contestId));
+		return NoContent();
+	}
+
+	[HttpPost("{contestId:int}/register")]
+	[Authorize]
+	public async Task<IActionResult> RegisterToContest(int contestId) {
+		await mediator.Send(new RegisterToContestCommand(contestId));
+		return NoContent();
+	}
+
+	[HttpDelete("{contestId:int}/register")]
+	[Authorize]
+	public async Task<IActionResult> UnregisterFromContest(int contestId) {
+		await mediator.Send(new UnregisterFromContestCommand(contestId));
 		return NoContent();
 	}
 }

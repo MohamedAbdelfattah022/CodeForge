@@ -22,4 +22,13 @@ public static class ProblemsMapping {
 				TestCases = (problem.TestCases ?? Enumerable.Empty<TestCase>()).ToList()
 			};
 	}
+
+	public static ProblemForContestDto ToProblemForContestDto(this Problem problem) {
+		return new ProblemForContestDto
+			{
+				Id = problem.Id,
+				Title = problem.Title,
+				Difficulty = problem.Difficulty
+			};
+	}
 }

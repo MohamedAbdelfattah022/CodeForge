@@ -9,7 +9,7 @@ public class CreateContestCommandHandler(
 	IContestsRepository contestsRepository) : IRequestHandler<CreateContestCommand, int> {
 	public async Task<int> Handle(CreateContestCommand request, CancellationToken cancellationToken) {
 		logger.LogInformation("CreateContestCommandHandler.Handle called with request: {@Request}", request);
-		
+
 		var contest = request.ToContest();
 		var contestId = await contestsRepository.CreateAsync(contest);
 		return contestId;
