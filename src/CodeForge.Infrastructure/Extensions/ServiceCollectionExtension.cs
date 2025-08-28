@@ -1,4 +1,5 @@
-﻿using Codeforge.Domain.Entities;
+﻿using Codeforge.Application.Standings.Services;
+using Codeforge.Domain.Entities;
 using Codeforge.Domain.Interfaces;
 using Codeforge.Domain.Options;
 using Codeforge.Domain.Repositories;
@@ -6,6 +7,7 @@ using Codeforge.Infrastructure.Contexts;
 using Codeforge.Infrastructure.Messaging;
 using Codeforge.Infrastructure.Repositories;
 using Codeforge.Infrastructure.Services;
+using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +25,14 @@ public static class ServiceCollectionExtension {
 			options.Configuration = configuration.GetSection("Redis:ConnectionString").Value;
 			options.InstanceName = configuration.GetSection("Redis:InstanceName").Value;
 		});
-		
+
+		services.AddHangfire(options => {
+			options.UseRecommendedSerializerSettings();
+			options.UseSimpleAssemblyNameTypeSerializer();
+			options.UseSqlServerStorage(connectionString);
+		});
+		services.AddHangfireServer();
+
 		services.AddIdentityApiEndpoints<User>()
 			.AddRoles<IdentityRole>()
 			.AddEntityFrameworkStores<CodeforgeDbContext>();
@@ -33,6 +42,9 @@ public static class ServiceCollectionExtension {
 		services.AddScoped<ITestcasesRepository, TestcasesRepository>();
 		services.AddScoped<ITagsRepository, TagsRepository>();
 		services.AddScoped<ISubmissionsRepository, SubmissionsRepository>();
+		services.AddScoped<IContestsRepository, ContestsRepository>();
+		
+		services.AddScoped<IStandingUpdateService, StandingUpdateService>();
 
 		services.Configure<RabbitMqOptions>(configuration.GetSection(RabbitMqOptions.SectionName));
 		services.Configure<SupabaseOptions>(configuration.GetSection(SupabaseOptions.SectionName));

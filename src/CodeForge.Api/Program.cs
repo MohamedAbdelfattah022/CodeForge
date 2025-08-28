@@ -3,6 +3,7 @@ using Codeforge.Api.Middlewares;
 using Codeforge.Application.Extentions;
 using Codeforge.Domain.Entities;
 using Codeforge.Infrastructure.Extensions;
+using Hangfire;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ if (app.Environment.IsDevelopment()) {
 		options.RouteTemplate = "/openapi/{documentName}.json"
 	);
 	app.MapScalarApiReference(options => { options.WithTheme(ScalarTheme.Kepler); });
+	app.UseHangfireDashboard();
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
