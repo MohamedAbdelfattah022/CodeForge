@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 using Supabase;
 using SupabaseOptions = Codeforge.Domain.Options.SupabaseOptions;
 
@@ -25,6 +26,9 @@ public static class ServiceCollectionExtension {
 			options.Configuration = configuration.GetSection("Redis:ConnectionString").Value;
 			options.InstanceName = configuration.GetSection("Redis:InstanceName").Value;
 		});
+		services.AddSingleton<IConnectionMultiplexer>(provider =>
+			ConnectionMultiplexer.Connect(configuration.GetSection("Redis:ConnectionString").Value!));
+
 
 		services.AddHangfire(options => {
 			options.UseRecommendedSerializerSettings();
@@ -44,7 +48,7 @@ public static class ServiceCollectionExtension {
 		services.AddScoped<ISubmissionsRepository, SubmissionsRepository>();
 		services.AddScoped<IContestsRepository, ContestsRepository>();
 		services.AddScoped<IStandingsRepository, StandingsRepository>();
-		
+
 		services.AddScoped<IStandingUpdateService, StandingUpdateService>();
 
 		services.Configure<RabbitMqOptions>(configuration.GetSection(RabbitMqOptions.SectionName));
