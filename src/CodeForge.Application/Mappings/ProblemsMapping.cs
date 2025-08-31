@@ -8,6 +8,7 @@ public static class ProblemsMapping {
 		return new ProblemDto
 			{
 				Id = problem.Id,
+				ContestId = problem.ContestId,
 				Title = problem.Title,
 				Description = problem.Description,
 				Difficulty = problem.Difficulty,
@@ -29,6 +30,16 @@ public static class ProblemsMapping {
 				Id = problem.Id,
 				Title = problem.Title,
 				Difficulty = problem.Difficulty
+			};
+	}
+	
+	public static ProblemResult ToProblemResult(this Problem problem, int standingId) {
+		return new ProblemResult
+			{
+				ProblemId = problem.Id,
+				ProblemLabel = string.Empty,
+				Score = 0,
+				StandingId = standingId
 			};
 	}
 }

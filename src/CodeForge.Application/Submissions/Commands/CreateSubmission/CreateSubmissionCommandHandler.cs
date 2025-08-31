@@ -1,5 +1,6 @@
 ﻿using Codeforge.Application.Submissions.Messages;
 using Codeforge.Application.Users;
+using Codeforge.Domain.Constants;
 using Codeforge.Domain.Entities;
 using Codeforge.Domain.Exceptions;
 using Codeforge.Domain.Interfaces;
@@ -25,7 +26,7 @@ public class CreateSubmissionCommandHandler(
 		var user = userContext.GetCurrentUser();
 		if (user is null) throw new UnauthorizedAccessException("User is not authenticated.");
 
-		var submission = request.ToSubmission(user.Id);
+		var submission = request.ToSubmission(user.Id, request.ContestId);
 		var id = await submissionsRepository.CreateAsync(submission);
 
 		var tests = (await testcasesRepository.GetAllProblemTestcasesAsync(request.ProblemId))?.ToList() ??
@@ -38,7 +39,9 @@ public class CreateSubmissionCommandHandler(
 			tempFilePath,
 			request.Language,
 			tests.Select(t => t.Input).ToList(),
-			tests.Select(t => t.ExpectedOutput).ToList()
+			tests.Select(t => t.ExpectedOutput).ToList(),
+			submission.SubmittedAt,
+			request.ContestId
 		);
 		await messageProducer.PublishAsync(message);
 

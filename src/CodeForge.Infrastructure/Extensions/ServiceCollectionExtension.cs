@@ -1,4 +1,4 @@
-﻿using Codeforge.Application.Standings.Services;
+﻿using Codeforge.Application.Contests.Services;
 using Codeforge.Domain.Entities;
 using Codeforge.Domain.Interfaces;
 using Codeforge.Domain.Options;
@@ -43,6 +43,7 @@ public static class ServiceCollectionExtension {
 		services.AddScoped<ITagsRepository, TagsRepository>();
 		services.AddScoped<ISubmissionsRepository, SubmissionsRepository>();
 		services.AddScoped<IContestsRepository, ContestsRepository>();
+		services.AddScoped<IStandingsRepository, StandingsRepository>();
 		
 		services.AddScoped<IStandingUpdateService, StandingUpdateService>();
 

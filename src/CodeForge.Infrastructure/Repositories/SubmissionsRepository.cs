@@ -25,4 +25,14 @@ public class SubmissionsRepository(CodeforgeDbContext dbContext) : BaseRepositor
 
 		return data;
 	}
+
+	public async Task<List<Submission>> GetContestSubmissionsForUserAndProblemAsync(int contestId, int problemId, string userId)
+	{
+		var data = await _dbSet
+			.AsNoTracking()
+			.Where(s => s.ContestId == contestId && s.ProblemId == problemId && s.UserId == userId)
+			.ToListAsync();
+
+		return data;
+	}
 }

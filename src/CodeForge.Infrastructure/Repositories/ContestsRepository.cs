@@ -11,7 +11,9 @@ public class ContestsRepository(CodeforgeDbContext dbContext) : BaseRepository<C
 
 	public async Task<List<Standing>> GetStandingsAsync(int contestId) {
 		return await _dbSet.Where(c => c.Id == contestId)
-			.SelectMany(s => s.Standings).ToListAsync();
+			.SelectMany(s => s.Standings)
+			.Include(s => s.Problems)
+			.ToListAsync();
 	}
 
 	public override async Task<Contest?> GetByIdAsync(int id) {

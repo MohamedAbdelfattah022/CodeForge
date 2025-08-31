@@ -93,7 +93,7 @@ public class CreateSubmissionCommandHandlerTests {
 
 		// Act
 		var action = () => _handler.Handle(command, CancellationToken.None);
-
+		
 		// Assert
 		await action.Should().ThrowAsync<ValidationException>()
 			.WithMessage("ProblemId must be greater than 0.");

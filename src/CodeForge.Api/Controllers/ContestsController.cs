@@ -5,6 +5,7 @@ using Codeforge.Application.Contests.Commands.UnregisterFromContest;
 using Codeforge.Application.Contests.Commands.UpdateContest;
 using Codeforge.Application.Contests.Queries.GetAllContests;
 using Codeforge.Application.Contests.Queries.GetContestById;
+using Codeforge.Application.Contests.Queries.GetContestStandings;
 using Codeforge.Application.Dtos;
 using Codeforge.Application.Shared;
 using Codeforge.Domain.Constants;
@@ -63,5 +64,11 @@ public class ContestsController(IMediator mediator) : ControllerBase {
 	public async Task<IActionResult> UnregisterFromContest(int contestId) {
 		await mediator.Send(new UnregisterFromContestCommand(contestId));
 		return NoContent();
+	}
+
+	[HttpGet("{contestId:int}/standings")]
+	public async Task<ActionResult<List<StandingDto>>> GetStandings(int contestId) {
+		var standings = await mediator.Send(new GetStandingsQuery(contestId));
+		return Ok(standings);
 	}
 }

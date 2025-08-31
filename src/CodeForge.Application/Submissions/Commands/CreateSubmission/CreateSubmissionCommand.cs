@@ -8,17 +8,19 @@ public class CreateSubmissionCommand : IRequest<int> {
 	[JsonIgnore] public int ProblemId { get; set; }
 	public required string Code { get; set; }
 	public required string Language { get; set; }
+	public int? ContestId { get; set; }
 }
 
 public static class CreateSubmissionCommandMapping {
-	public static Submission ToSubmission(this CreateSubmissionCommand command, string userId) {
+	public static Submission ToSubmission(this CreateSubmissionCommand command, string userId, int? contestId = null) {
 		return new Submission
 			{
 				UserId = userId,
 				ProblemId = command.ProblemId,
 				Code = command.Code,
 				Language = command.Language,
-				SubmittedAt = DateTime.UtcNow
+				SubmittedAt = DateTime.UtcNow,
+				ContestId = contestId
 			};
 	}
 }
