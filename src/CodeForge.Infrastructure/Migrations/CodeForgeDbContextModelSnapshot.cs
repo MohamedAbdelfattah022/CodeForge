@@ -44,9 +44,6 @@ namespace Codeforge.Infrastructure.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Contests");
@@ -96,13 +93,6 @@ namespace Codeforge.Infrastructure.Migrations
                     b.Property<int>("ProblemId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProblemLabel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Score")
-                        .HasColumnType("float");
-
                     b.Property<int>("StandingId")
                         .HasColumnType("int");
 
@@ -122,9 +112,6 @@ namespace Codeforge.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ContestId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Rank")
                         .HasColumnType("int");
 
                     b.Property<double>("Score")
