@@ -3,6 +3,7 @@
 <p align="center">
   <a href="#about">About</a> &#xa0; | &#xa0; 
   <a href="#features">Features</a> &#xa0; | &#xa0;
+  <a href="#Design-Diagrams">Design Diagrams</a> &#xa0; | &#xa0;
   <a href="#technologies">Technologies</a> &#xa0; | &#xa0;
   <a href="#getting-started">Getting Started</a> &#xa0; | &#xa0;
   <a href="#contributing">Contributing</a> &#xa0; | &#xa0;
@@ -14,8 +15,8 @@
 
 ## About
 
-Codeforge is an Online Judge System designed to facilitate coding practice. It allows users to create, manage, and solve
-coding problems with various constraints and difficulty levels. The system supports user authentication, problem
+Codeforge is an Online Judge System designed to facilitate Contests and Coding practice. It allows users to create, manage, and solve
+coding problems with various constraints and difficulty levels and compete in contests following ICPC Rules. The system supports user authentication, problem
 submission, and evaluation of solutions against predefined test cases.
 
 ## Features
@@ -32,6 +33,14 @@ submission, and evaluation of solutions against predefined test cases.
 - **API Documentation**: Interactive API documentation using Scalar and Swagger
 - **Comprehensive Testing**: Extensive unit testing with xUnit, NSubstitute, and FluentAssertions
 
+## Design Diagrams
+
+- **Architecture**
+<img id="arch-diagram" alt="arch diagram" src="images\Codeforge System Architecture.drawio.svg">
+
+- **Database Schema**
+<img id="db-schema" alt="db schema" src="images\Codeforge DB Schema.drawio.svg">
+
 ## Technologies
 
 ### Backend Framework
@@ -40,6 +49,9 @@ submission, and evaluation of solutions against predefined test cases.
 - **ASP.NET Core**: For building the web API with modern features
 - **Entity Framework Core**: For database management and migrations
 - **SQL Server**: Primary database for data persistence
+- **Hangfire**: Background job processing
+- **MediatR**: For implementing the CQRS pattern
+- **Redis**: Caching layer for improved performance
 
 ### Validation & Logging
 
@@ -87,6 +99,7 @@ submission, and evaluation of solutions against predefined test cases.
 The project includes Docker Compose configuration for:
 
 - **RabbitMQ**: Message queuing service
+- **Redis**: Caching service
 - **C++ Environment**: GCC 13 for C++ code execution
 - **Python Environment**: Python 3.12 for Python code execution
 - **C# Environment**: .NET 9.0 SDK for C# code execution
