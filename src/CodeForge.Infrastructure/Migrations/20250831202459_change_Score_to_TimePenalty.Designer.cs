@@ -4,6 +4,7 @@ using Codeforge.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Codeforge.Infrastructure.Migrations
 {
     [DbContext(typeof(CodeforgeDbContext))]
-    partial class CodeforgeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250831202459_change_Score_to_TimePenalty")]
+    partial class change_Score_to_TimePenalty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

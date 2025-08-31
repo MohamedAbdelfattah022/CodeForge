@@ -28,12 +28,12 @@ public class StandingUpdateService(
 	}
 
 	public void StartStandingsUpdateRecurringJob(int contestId, string jobId) {
-		recurringJob.AddOrUpdate(jobId, () => UpdateStandings(contestId, null), "*/1 * * * *");
+		recurringJob.AddOrUpdate(jobId, () => UpdateStandings(contestId, null), "*/2 * * * *");
 	}
 
 	public async Task StopStandingsUpdateAsync(int contestId, string jobId) {
 		recurringJob.RemoveIfExists(jobId);
-		await UpdateStandings(contestId, TimeSpan.FromMinutes(1));
+		await UpdateStandings(contestId, TimeSpan.FromMinutes(15));
 	}
 
 	public async Task UpdateStandings(int contestId, TimeSpan? absoluteExpiration = null) {
@@ -52,7 +52,7 @@ public class StandingUpdateService(
 		if (submission.ContestId is null) return;
 
 		var contest = await contestsRepository.GetByIdAsync(submission.ContestId.Value);
-		if (contest is null || contest.EndTime <= DateTime.Now) return;
+		if (contest is null || contest.EndTime <= DateTime.UtcNow) return;
 
 		var standing = await standingsRepository.GetUserStandings(submission.ContestId!.Value, user.UserName!);
 		if (standing is null) {
@@ -60,13 +60,13 @@ public class StandingUpdateService(
 				{
 					ContestId = submission.ContestId.Value,
 					UserName = user.UserName!,
-					Score = submission.Penalty ?? 0,
+					TimePenalty = submission.Penalty ?? 0,
 					Problems = []
 				};
 			await standingsRepository.CreateAsync(standing);
 		}
 
-		standing.Score = submission.Penalty ?? standing.Score;
+		standing.TimePenalty = submission.Penalty ?? standing.TimePenalty;
 
 		var solvedProblem = contest.Problems.First(p => p.Id == submission.ProblemId);
 		var problemResult = solvedProblem.ToProblemResult(standing.Id);

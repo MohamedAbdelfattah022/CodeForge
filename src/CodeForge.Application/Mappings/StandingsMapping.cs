@@ -8,7 +8,7 @@ public static class StandingsMapping {
         return new StandingDto {
             ContestId = standing.ContestId,
             UserName = standing.UserName,
-            Score = standing.Score,
+            TimePenalty = standing.TimePenalty,
             Problems = standing.Problems?.Select(pr => pr.ToDto()).ToList() ?? []
         };
     }

@@ -13,6 +13,8 @@ public class ContestsRepository(CodeforgeDbContext dbContext) : BaseRepository<C
 		return await _dbSet.Where(c => c.Id == contestId)
 			.SelectMany(s => s.Standings)
 			.Include(s => s.Problems)
+			.OrderByDescending(s => s.Problems.Count()) 
+			.ThenBy(s => s.TimePenalty)
 			.ToListAsync();
 	}
 
