@@ -61,7 +61,6 @@ public class StandingUpdateService(
 					ContestId = submission.ContestId.Value,
 					UserName = user.UserName!,
 					Score = submission.Penalty ?? 0,
-					Rank = 0,
 					Problems = []
 				};
 			await standingsRepository.CreateAsync(standing);

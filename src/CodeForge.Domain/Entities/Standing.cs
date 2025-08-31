@@ -4,8 +4,6 @@ namespace Codeforge.Domain.Entities;
 
 public sealed class Standing : BaseEntity {
     public int ContestId { get; set; }
-    // TODO: Remove column in future migration
-    public int Rank { get; set; }
     public string UserName { get; set; } = string.Empty;
     public double Score { get; set; }
     [JsonIgnore]

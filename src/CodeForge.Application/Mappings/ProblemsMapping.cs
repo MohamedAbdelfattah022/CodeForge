@@ -37,8 +37,6 @@ public static class ProblemsMapping {
 		return new ProblemResult
 			{
 				ProblemId = problem.Id,
-				ProblemLabel = string.Empty,
-				Score = 0,
 				StandingId = standingId
 			};
 	}

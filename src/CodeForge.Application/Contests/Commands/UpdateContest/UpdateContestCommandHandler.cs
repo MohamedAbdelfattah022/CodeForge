@@ -22,7 +22,6 @@ public class UpdateContestCommandHandler(
 		contest.Description = request.Description ?? contest.Description;
 		contest.StartTime = request.StartTime ?? contest.StartTime;
 		contest.EndTime = request.EndTime ?? contest.EndTime;
-		contest.Status = request.Status ?? contest.Status;
 		
 		await contestsRepository.UpdateAsync(contest);
 	}

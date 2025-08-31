@@ -12,8 +12,5 @@ public class CreateContestCommandValidator : AbstractValidator<CreateContestComm
 
 		RuleFor(x => x.StartTime)
 			.LessThan(x => x.EndTime).WithMessage("StartTime must be before EndTime.");
-
-		RuleFor(x => x.Status)
-			.IsInEnum().WithMessage("Status must be a valid enum value.");
 	}
 }

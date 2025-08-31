@@ -12,7 +12,6 @@ public static class ContestsMapping {
 				Description = contest.Description,
 				StartTime = contest.StartTime,
 				EndTime = contest.EndTime,
-				Status = contest.Status,
 				Problems = contest.Problems?.Select(p => p.ToProblemForContestDto()).ToList() ?? [],
 				Participants = contest.Participants?.Select(u => u.ToUserForContestDto()).ToList() ?? []
 			};
@@ -25,8 +24,7 @@ public static class ContestsMapping {
 				Name = dto.Name,
 				Description = dto.Description,
 				StartTime = dto.StartTime,
-				EndTime = dto.EndTime,
-				Status = dto.Status
+				EndTime = dto.EndTime
 			};
 	}
 }
